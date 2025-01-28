@@ -43,3 +43,6 @@ void Game::gameloop() {
 	
 	
 }
+Game::Game(){}
+
+void Game::loop() {}
