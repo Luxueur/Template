@@ -1,6 +1,5 @@
 #ifndef GAME_HPP
 #define GAME_HPP
-
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <iostream>
