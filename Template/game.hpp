@@ -24,8 +24,15 @@ using namespace sf;
 
 class Game {
 public:
-	Game() {};
-	void loop();
+
+	RenderWindow* window;
+	Texture cursorTexture;
+	Sprite cursor;
+
+
+	Game();
+
+	void gameloop();
 };
 
 

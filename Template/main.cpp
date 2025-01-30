@@ -1,6 +1,12 @@
-#include "game.cpp"
+#include "game.hpp"
+
+using namespace sf;
+using namespace std;
+
 int main() {
+
 	Game game;
-	game.loop();
+	game.gameloop();
 	return 0;
+
 }
