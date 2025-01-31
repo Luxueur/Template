@@ -55,12 +55,30 @@ Game::Game() {
 void Game::playingGame() {
 	Map* m = new Map();
 	m->loadMap();
+	Player player;
+	InputHandler handleInput;
+	Clock clock;
+	while (window->isOpen() && state == GameState::Playing) {
+		Event event;
+		while (window->pollEvent(event)) {
+			if (event.type == Event::Closed) {
+				window->close();
+			}
+		}
 
-	window->clear();
-	m->draw(*window);
-	window->display();
+		sf::Vector2f direction = player.getDirection();
+		handleInput.handleInput(event, direction);
+		player.setDirection(direction);
+
+		float deltaTime = clock.restart().asSeconds();
+		player.update(deltaTime);
+		window->clear();
+		m->draw(*window);
+		player.render(*window);
+		window->display();
 
 
+	}
 }
 
 void Game::mainMenu() {
