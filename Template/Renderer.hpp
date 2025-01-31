@@ -18,9 +18,12 @@ public:
 	vector<Sprite*> mers;
 	vector<Sprite*> sols; 
 
+	int frame;
+	float timeSinceLastFrame;
+
 	Map();
 
-	void update();
+	void update(float deltaTimeMap);
 
 	void collision();
 

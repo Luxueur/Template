@@ -13,15 +13,21 @@ Map::Map() {
 	 
 	textureMer.loadFromFile("Images/Terrain/Water/Foam/foam.png"); 
 	textureSol.loadFromFile("Images/Terrain/Ground/SolCarreVert.png");
-	spriteMer.setTexture(textureMer);
+	
 	spriteSol.setTexture(textureSol);
-
-
+	spriteMer.setTextureRect(IntRect(0, 0, 192,192));
+	int frame = 0;
+	timeSinceLastFrame = 0.f ;
 
 };
 
-void Map::update() {
-
+void Map::update(float deltaTimeMap) {
+	
+	timeSinceLastFrame += deltaTimeMap;
+	if (timeSinceLastFrame >= 0.1f) { timeSinceLastFrame = 0.f;frame++; }
+	if (frame / 10 > 7) { frame = 0; }
+	else { frame++; }
+	
 };
 
 void Map::collision() {
@@ -32,17 +38,14 @@ void Map::loadMap() {
 	ifstream Map1("Map.txt");  
 	string line;
 	float z = 0;
-	int frame = 0;
+
 	while (getline(Map1, line)) {
 		for (int i = 0; i < line.size(); i++) {
 			switch (line[i]) {
 			case '0': {
 				Sprite* mer = new Sprite;
-				mer->setTexture(textureMer);
+				mer->setTextureRect(IntRect(0, 0, 192, 192));
 				mer->setPosition({ (float)i * 192, (float)z * 192 });
-				if (frame / 10 > 7)	{frame = 0;	}
-				else {frame++;}
-				spriteMer.setTextureRect(IntRect(0 + 16 * (frame / 10), 0, 16, 16));
 				mers.push_back(mer);
 				break;
 			}

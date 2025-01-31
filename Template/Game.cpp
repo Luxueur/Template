@@ -55,41 +55,11 @@ Game::Game() {
 void Game::playingGame() {
 	Map* m = new Map();
 	m->loadMap();
-<<<<<<< HEAD
-	while (window->isOpen()) {
-		Event event;
-		while (window->pollEvent(event)) {
-			if (event.type == Event::Closed)
-				window->close();
-			if (Keyboard::isKeyPressed(Keyboard::Escape)) {
-				state = GameState::Exit;
-				window->close();
-			}
-			else if (event.type == Event::MouseButtonPressed and Mouse::isButtonPressed(Mouse::Left)) {
-				if (onStart) {
-					state = GameState::Playing;
-					//Player - joueur - map
-					return gameloop();
-				}
-				if (onSettings) {
-					state = GameState::Settings;
-				}
-				if (onExit) {
-					state = GameState::Exit;
-					window->close();
-				}
-			}
-		}
-		window->clear();
-		m->update();
-		m->draw(*window);
-		window->display();
-	}
-=======
+
 	Player player;
 	InputHandler handleInput;
 	Clock clock;
-	while (window->isOpen() && state == GameState::Playing) {
+	while (window->isOpen()) {
 		Event event;
 		while (window->pollEvent(event)) {
 			if (event.type == Event::Closed) {
@@ -97,17 +67,21 @@ void Game::playingGame() {
 			}
 		}
 
-		sf::Vector2f direction = player.getDirection();
+		Vector2f direction = player.getDirection();
 		handleInput.handleInput(event, direction);
 		player.setDirection(direction);
 
 		float deltaTime = clock.restart().asSeconds();
 		player.update(deltaTime);
+
+		float deltaTimeMap = clock.restart().asSeconds();
+		m->update(deltaTimeMap); 
+
 		window->clear();
+		
 		m->draw(*window);
 		player.render(*window);
 		window->display();
->>>>>>> 485260e2e32c5ee26283f261f32e41d2358ed0cd
 
 
 	}
