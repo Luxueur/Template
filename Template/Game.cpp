@@ -14,7 +14,7 @@ Game::Game() {
 	Image icon;
 	icon.loadFromFile("icon.png");
 	window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
-	window->setMouseCursorVisible(false);
+	//window->setMouseCursorVisible(false);
 
 	//cursor
 	cursorTexture.loadFromFile("Images/Menu/Pointers/cursor.png");
@@ -55,10 +55,35 @@ Game::Game() {
 void Game::playingGame() {
 	Map* m = new Map();
 	m->loadMap();
-
-	window->clear();
-	m->draw(*window);
-	window->display();
+	while (window->isOpen()) {
+		Event event;
+		while (window->pollEvent(event)) {
+			if (event.type == Event::Closed)
+				window->close();
+			if (Keyboard::isKeyPressed(Keyboard::Escape)) {
+				state = GameState::Exit;
+				window->close();
+			}
+			else if (event.type == Event::MouseButtonPressed and Mouse::isButtonPressed(Mouse::Left)) {
+				if (onStart) {
+					state = GameState::Playing;
+					//Player - joueur - map
+					return gameloop();
+				}
+				if (onSettings) {
+					state = GameState::Settings;
+				}
+				if (onExit) {
+					state = GameState::Exit;
+					window->close();
+				}
+			}
+		}
+		window->clear();
+		m->update();
+		m->draw(*window);
+		window->display();
+	}
 
 
 }
