@@ -14,7 +14,7 @@ Game::Game() {
 	Image icon;
 	icon.loadFromFile("icon.png");
 	window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
-	window->setMouseCursorVisible(false);
+	//window->setMouseCursorVisible(false);
 
 	//cursor
 	cursorTexture.loadFromFile("Images/Menu/Pointers/cursor.png");
@@ -55,10 +55,11 @@ Game::Game() {
 void Game::playingGame() {
 	Map* m = new Map();
 	m->loadMap();
+
 	Player player;
 	InputHandler handleInput;
 	Clock clock;
-	while (window->isOpen() && state == GameState::Playing) {
+	while (window->isOpen()) {
 		Event event;
 		while (window->pollEvent(event)) {
 			if (event.type == Event::Closed) {
@@ -66,13 +67,18 @@ void Game::playingGame() {
 			}
 		}
 
-		sf::Vector2f direction = player.getDirection();
+		Vector2f direction = player.getDirection();
 		handleInput.handleInput(event, direction);
 		player.setDirection(direction);
 
 		float deltaTime = clock.restart().asSeconds();
 		player.update(deltaTime);
+
+		float deltaTimeMap = clock.restart().asSeconds();
+		m->update(deltaTimeMap); 
+
 		window->clear();
+		
 		m->draw(*window);
 		player.render(*window);
 		window->display();
