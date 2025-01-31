@@ -11,27 +11,32 @@ using namespace std;
 
 class Enemy : public Entity {
 public:
-    Enemy();
+    Player* player;
+    Enemy(Player* p);
     virtual ~Enemy();
 
     virtual void update(float deltaTime) override;
     virtual void draw(RenderWindow& window) override;
 
+
+    virtual void enemyMove() = 0;
+
 protected:
     // To hold the animation frames (textures)
     std::vector<sf::Texture> frames;
     int currentFrame;
-    float animationSpeed;  // How fast the animation plays
+    float animationSpeed;
     float timeSinceLastFrame;
 };
 
 class TorcheEnemy : public Enemy {
 public:
-    TorcheEnemy();
+    TorcheEnemy(Player* p);
     ~TorcheEnemy();
 
     void update(float deltaTime) override;
     void draw(RenderWindow& window) override;
+    void enemyMove() override;
 };
 
 #endif // ENEMY_HPP

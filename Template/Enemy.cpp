@@ -3,7 +3,9 @@
 #include <stdexcept>
 
 // --- Enemy Base Class ---
-Enemy::Enemy() : currentFrame(0), animationSpeed(0.2f), timeSinceLastFrame(0.0f) {}
+Enemy::Enemy() : currentFrame(0), animationSpeed(0.2f), timeSinceLastFrame(0.0f) {
+    player = p;
+}
 
 Enemy::~Enemy() {}
 
@@ -61,4 +63,19 @@ void TorcheEnemy::update(float deltaTime) {
 
 void TorcheEnemy::draw(sf::RenderWindow& window) {
     Enemy::draw(window);
+}
+
+void TorcheEnemy::enemyMove() {
+    if (enemy.getPosition().x > player->rect.getPosition().x) {
+        enemy.move(-0.01f, 0);
+    }
+    if (enemy.getPosition().x < player->rect.getPosition().x) {
+        enemy.move(0.01f, 0);
+    }
+    if (enemy.getPosition().y > player->rect.getPosition().y) {
+        enemy.move(0, -0.01f);
+    }
+    if (enemy.getPosition().y < player->rect.getPosition().y) {
+        enemy.move(0, 0.01f);
+    }
 }
