@@ -24,13 +24,48 @@ using namespace sf;
 
 class Game {
 public:
-
+	//Fenetre principale
 	RenderWindow* window;
-	Texture cursorTexture;
-	Sprite cursor;
+	float screenWidth = 1300;
+	float screenlenght = screenWidth / 4 * 3;
+	Vector2f mousePos;
+	//Menu principale
+	Texture cursorTexture;	Sprite cursorSprite;
+	bool isStart = false;
+	bool isExit = false;
+	bool isSettings = false;
+	bool onStart = false;
+	bool onExit = false;
+	bool onSettings = false;
+	Texture bannerVerticalUpTexture, bannerVerticalDownTexture;	Sprite bannerVerticalUpSprite, bannerVerticalDownSprite;
+	Texture exitButtonOnTexture, exitButtonOffTexture; Sprite exitButtonSprite;
+	Texture startButtonOnTexture, startButtonOffTexture; Sprite startButtonSprite;
+	Texture settingsButtonOnTexture, settingsButtonOffTexture; Sprite settingsButtonSprite;
+	Font fontMain;
+	Text startButtonFont, settingsButtonFont, exitButtonFont, titleButtonFont;
+	FloatRect textTitleBounds, textStartBounds, textSettingsBounds, textExitBounds;
+
+
+
+	enum class GameState {
+		Menu,
+		Playing,
+		Pause,
+		Settings,
+		Exit
+	};
+
+	GameState state;
+	//Texture settingsButtonOn, settingsButtonOff; Sprite settingsButton;
 
 
 	Game();
+
+	void pauseMenu() {};
+
+	void settingsMenu() {};
+
+	void mainMenu();
 
 	void gameloop();
 };
