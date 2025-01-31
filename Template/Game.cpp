@@ -58,7 +58,7 @@ void Game::playingGame() {
 
 	Player player;
 	InputHandler handleInput;
-	Enemy enemy;
+	TorcheEnemy torche(&player);
 	Clock clock;
 	Clock clockMap; 
 	while (window->isOpen()) {
@@ -84,7 +84,7 @@ void Game::playingGame() {
 
 		m->draw(*window);
 		player.render(*window);
-		enemy.draw(*window);
+		//torche.draw(*window);
 		window->display();
 
 	}

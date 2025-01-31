@@ -1,9 +1,8 @@
 //Enemy : classe gérant les ennemis et leur comportement.
 #include "Enemy.hpp"
-#include <stdexcept>
 
 // --- Enemy Base Class ---
-Enemy::Enemy() : currentFrame(0), animationSpeed(0.2f), timeSinceLastFrame(0.0f) {
+Enemy::Enemy(Player* p) : currentFrame(0), animationSpeed(0.2f), timeSinceLastFrame(0.0f) {
     player = p;
 }
 
@@ -24,7 +23,7 @@ void Enemy::draw(sf::RenderWindow& window) {
 }
 
 // --- TorcheEnemy ---
-TorcheEnemy::TorcheEnemy() {
+TorcheEnemy::TorcheEnemy(Player* p) : Enemy (p) {
     if (!frames[0].loadFromFile("Images/torche/idle1.png")) {
         throw std::runtime_error("Erreur : texture de l'enemy est introuvable.");
     }
@@ -43,11 +42,11 @@ TorcheEnemy::TorcheEnemy() {
     if (!frames[5].loadFromFile("Images/torche/idle6.png")) {
         throw std::runtime_error("Erreur : texture de l'enemy est introuvable.");
     }
-    if (!frames[9].loadFromFile("Images/torche/idle7.png")) {
+    if (!frames[6].loadFromFile("Images/torche/idle7.png")) {
         throw std::runtime_error("Erreur : texture de l'enemy est introuvable.");
     }
 
-    enemy.setTexture(frames[0]);  // Set the first frame initially
+    enemy.setTexture(frames[0]);
     enemy.setPosition(935, 515);
 
 }
@@ -61,21 +60,21 @@ void TorcheEnemy::update(float deltaTime) {
     // Additional specific behaviors for TorcheEnemy can be added here
 }
 
-void TorcheEnemy::draw(sf::RenderWindow& window) {
+void TorcheEnemy::draw(RenderWindow& window) {
     Enemy::draw(window);
 }
 
 void TorcheEnemy::enemyMove() {
-    if (enemy.getPosition().x > player->rect.getPosition().x) {
+    if (enemy.getPosition().x > player->playerSprite.getPosition().x) {
         enemy.move(-0.01f, 0);
     }
-    if (enemy.getPosition().x < player->rect.getPosition().x) {
+    if (enemy.getPosition().x < player->playerSprite.getPosition().x) {
         enemy.move(0.01f, 0);
     }
-    if (enemy.getPosition().y > player->rect.getPosition().y) {
+    if (enemy.getPosition().y > player->playerSprite.getPosition().y) {
         enemy.move(0, -0.01f);
     }
-    if (enemy.getPosition().y < player->rect.getPosition().y) {
+    if (enemy.getPosition().y < player->playerSprite.getPosition().y) {
         enemy.move(0, 0.01f);
     }
 }

@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
-
+#include <vector>
 using namespace sf;
 using namespace std;
 
@@ -14,6 +14,7 @@ public:
 	void render(RenderWindow& window);
 	void setDirection(Vector2f direction);
 	Vector2f getDirection();
+	Sprite playerSprite;
 private:
 	void loadTextures();
 	void updateAnimation(float deltaTime);
