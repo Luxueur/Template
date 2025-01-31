@@ -6,4 +6,17 @@
 using namespace sf;
 using namespace std;
 
-//Player : classe gérant le joueur (position, mouvement, actions...)
+class Player
+{
+public:
+	Player();
+	void update(float deltaTime);
+	void render(RenderWindow& window);
+	void setDirection(Vector2f direction);
+	Vector2f getDirection();
+private:
+	Texture playerTexture;
+	Sprite playerSprite;
+	Vector2f direction;
+	float speed;
+};

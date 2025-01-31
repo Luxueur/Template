@@ -7,4 +7,25 @@
 using namespace sf;
 using namespace std;
 
-//InputHandler classe gérant les entrées utilisateur.
+
+    void InputHandler::handleInput(Event& event, Vector2f& direction) {
+        direction = Vector2f(0.f, 0.f);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
+            direction.y -= 1.f;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+            direction.y += 1.f;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+            direction.x -= 1.f;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+            direction.x += 1.f;
+        }
+
+        if (direction.x != 0.f || direction.y != 0.f) {
+            float length = sqrt(direction.x * direction.x + direction.y * direction.y);
+            direction /= length;
+        }
+    }
+
