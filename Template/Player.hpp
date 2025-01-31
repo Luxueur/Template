@@ -15,8 +15,19 @@ public:
 	void setDirection(Vector2f direction);
 	Vector2f getDirection();
 private:
+	void loadTextures();
+	void updateAnimation(float deltaTime);
+	
+	enum class State { Idle, Walk };
+	State currentState;
+	
+	vector<shared_ptr<Texture>> idleTextures;
+	vector<shared_ptr<Texture>> walkTextures;
+	unique_ptr<Sprite> playerSprite;
 	Texture playerTexture;
-	Sprite playerSprite;
+	//Sprite playerSprite;
 	Vector2f direction;
 	float speed;
+	float animationTime;
+	size_t currentFrame;
 };
