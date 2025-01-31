@@ -58,6 +58,7 @@ void Game::playingGame() {
 
 	Player player;
 	InputHandler handleInput;
+	Enemy enemy;
 	Clock clock;
 	Clock clockMap; 
 	while (window->isOpen()) {
@@ -83,6 +84,7 @@ void Game::playingGame() {
 
 		m->draw(*window);
 		player.render(*window);
+		enemy.draw(*window);
 		window->display();
 
 	}

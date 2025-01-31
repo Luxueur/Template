@@ -1,32 +1,40 @@
+//Enemy : classe gérant les ennemis et leur comportement.
 #ifndef ENEMY_HPP
 #define ENEMY_HPP
 
-#include <SFML/Graphics.hpp>
+#include "Entity.hpp"
 #include <vector>
 #include <iostream>
-#include "Entity.hpp"
+
 using namespace sf;
 using namespace std;
 
-//Enemy : classe gérant les ennemis et leur comportement.
-class Enemy : public Entity{
+class Enemy : public Entity {
 public:
-	Enemy();
-	~Enemy();
+    Enemy();
+    virtual ~Enemy();
 
-	void update(float deltaTime) override;
-	void draw(RenderWindow& window) override;
+    virtual void update(float deltaTime) override;
+    virtual void draw(RenderWindow& window) override;
+
+protected:
+    // To hold the animation frames (textures)
+    std::vector<sf::Texture> frames;
+    int currentFrame;
+    float animationSpeed;  // How fast the animation plays
+    float timeSinceLastFrame;
 };
 
-class torcheENemy : public Enemy{
+class TorcheEnemy : public Enemy {
 public:
-	torcheENemy();
-	~torcheENemy();
+    TorcheEnemy();
+    ~TorcheEnemy();
+
+    void update(float deltaTime) override;
+    void draw(RenderWindow& window) override;
 };
 
+#endif // ENEMY_HPP
 
-
-
-#endif // !ENEMY_HPP
 
 

@@ -10,14 +10,20 @@ using namespace std;
 
 class Entity {
 public:
+    Entity();
+    virtual ~Entity();
 
+    // Setters and Getters
+    void setPosition(float x, float y);
+    Vector2f getPosition() const;
 
-	Entity();
-	~Entity();
+    // Virtual functions for updating and drawing
+    virtual void update(float deltaTime);
+    virtual void draw(RenderWindow& window);
 
-	virtual void update(float deltaTime) = 0;
-	virtual void draw(sf::RenderWindow& window) = 0;
-
+protected:
+    Sprite enemy;
+    Texture enemyTexture;
 };
 
-#endif // !ENTITY_HPP
+#endif // ENTITY_HPP
