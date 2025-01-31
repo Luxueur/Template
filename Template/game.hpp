@@ -63,6 +63,8 @@ public:
 
 	void pauseMenu() {};
 
+	void playingGame();
+
 	void settingsMenu() {};
 
 	void mainMenu();

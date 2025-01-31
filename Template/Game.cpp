@@ -52,6 +52,17 @@ Game::Game() {
 
 }
 
+void Game::playingGame() {
+	Map* m = new Map();
+	m->loadMap();
+
+	window->clear();
+	m->draw(*window);
+	window->display();
+
+
+}
+
 void Game::mainMenu() {
 
 	while (window->isOpen()) {
@@ -67,6 +78,7 @@ void Game::mainMenu() {
 				if (onStart) {
 					state = GameState::Playing;
 					//Player - joueur - map
+					return gameloop();
 				}
 				if (onSettings) {
 					state = GameState::Settings;
@@ -130,6 +142,7 @@ void Game::gameloop() {
 			pauseMenu();
 		}
 		else if (state == GameState::Playing) {
+			playingGame();
 			//userInput();
 			//update();
 			//display();
