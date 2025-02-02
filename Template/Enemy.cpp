@@ -54,10 +54,7 @@ TorcheEnemy::TorcheEnemy(Player* p) : Enemy (p) {
 TorcheEnemy::~TorcheEnemy() {}
 
 void TorcheEnemy::update(float deltaTime) {
-    // Call base class update to handle animation
     Enemy::update(deltaTime);
-
-    // Additional specific behaviors for TorcheEnemy can be added here
 }
 
 void TorcheEnemy::draw(RenderWindow& window) {
