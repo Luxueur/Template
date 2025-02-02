@@ -59,6 +59,7 @@ void Game::playingGame() {
 	Player player;
 	InputHandler handleInput;
 	Clock clock;
+	Clock clockMap; 
 	while (window->isOpen()) {
 		Event event;
 		while (window->pollEvent(event)) {
@@ -74,15 +75,15 @@ void Game::playingGame() {
 		float deltaTime = clock.restart().asSeconds();
 		player.update(deltaTime);
 
-		float deltaTimeMap = clock.restart().asSeconds();
+		float deltaTimeMap = clockMap.restart().asSeconds(); 
 		m->update(deltaTimeMap); 
 
 		window->clear();
-		
+		window->clear(Color(71, 171, 169));
+
 		m->draw(*window);
 		player.render(*window);
 		window->display();
-
 
 	}
 }
@@ -115,6 +116,7 @@ void Game::mainMenu() {
 		}
 
 		window->clear();
+		window->clear(Color(71, 171, 169));
 		window->draw(bannerVerticalUpSprite);
 		window->draw(startButtonSprite); window->draw(startButtonFont);
 		if (startButtonSprite.getGlobalBounds().contains(window->mapPixelToCoords(Mouse::getPosition(*window)))) {

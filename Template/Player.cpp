@@ -25,8 +25,7 @@ void Player::loadTextures()
 		idleTextures.push_back(texture);
 	}
 
-	for (int i = 0; i < 5; i++)
-	{
+	for (int i = 0; i < 5; i++) {
 		auto texture = make_shared<Texture>();
 		if (!texture->loadFromFile("Images/Factions/Knights/Troops/Warrior/Blue/Walk/Warrior_Blue_Walk" + to_string(i) + ".png")) {
 			throw std::runtime_error("Failed to load walk texture");

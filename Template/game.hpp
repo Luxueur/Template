@@ -20,7 +20,6 @@
 
 using namespace std;
 using namespace sf;
-//a
 
 class Game {
 public:

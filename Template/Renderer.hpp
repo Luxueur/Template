@@ -12,14 +12,19 @@ using namespace std;
 class Map {
 public:
 
-	Texture textureMer, textureSol;
+	Texture textureMer, textureSol, textureRocks, textureSable, textureSolCarreJaune, textureSolJaune, textureSolJaune_, textureSolJauneL;
 	Sprite spriteMer, spriteSol;
 
 	vector<Sprite*> mers;
 	vector<Sprite*> sols; 
+	vector<Sprite*> rocks; 
+	vector<Sprite*> sableJauneCarre; 
+	vector<Sprite*> sableJauneL; 
+	vector<Sprite*> sableJaune_; 
+	vector<Sprite*> sableJaune; 
 
 	int frame;
-	float timeSinceLastFrame;
+	float timeSinceLastFrameMap;
 
 	Map();
 
