@@ -55,8 +55,9 @@ Game::Game() {
 void Game::playingGame() {
 	Map* m = new Map();
 	m->loadMap();
-
+	
 	Player player;
+	Camera* camera = new Camera(screenWidth, screenlenght);
 	InputHandler handleInput;
 	TorcheEnemy torche(&player);
 	Clock clock;
@@ -71,16 +72,18 @@ void Game::playingGame() {
 
 		Vector2f direction = player.getDirection();
 		handleInput.handleInput(event, direction);
+		camera->update(player.playerSprite->getPosition());
+		camera->apply(*window);
 		player.setDirection(direction);
 
 		float deltaTime = clock.restart().asSeconds();
-		player.update(deltaTime);
+		player.update(*window,deltaTime);
 
 		if (Keyboard::isKeyPressed(Keyboard::H)) {
-			player.prendDesDegats();
+			player.prendDesDegats(*window);
 		}
 		if (Keyboard::isKeyPressed(Keyboard::J)) {
-			player.soigneDesPv();
+			player.soigneDesPv(*window);
 		}
 
 		float deltaTimeMap = clockMap.restart().asSeconds(); 
@@ -97,6 +100,7 @@ void Game::playingGame() {
 		window->display();
 
 	}
+	delete camera;
 }
 
 void Game::mainMenu() {

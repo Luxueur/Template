@@ -3,6 +3,8 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include "Camera.hpp"
+
 
 using namespace sf;
 using namespace std;
@@ -13,6 +15,9 @@ Player::Player() : pv(3), speed(200.0f), animationTime(0.0f), currentFrame(0), c
     playerSprite->setTexture(*idleTextures[0]);
     playerSprite->setOrigin(Vector2f(idleTextures[0]->getSize()) / 2.f);
     playerSprite->setPosition(Vector2f(400.0f, 300.0f));
+	direction = Vector2f(0.0f, 0.0f);
+
+	
 
 	for (int i = 0; i < pv; i++)
 	{
@@ -48,10 +53,12 @@ void Player::loadTextures()
 }
 
 
-void Player::update(float deltaTime) {
+void Player::update(RenderWindow& window, float deltaTime) {
+	
 	playerSprite->move(direction * speed * deltaTime);
+
 	updateAnimation(deltaTime);
-	updateHealthBar();
+	updateHealthBar(window, playerSprite->getPosition());
 }
 
 void Player::render(RenderWindow& window) {
@@ -85,27 +92,31 @@ void Player::setDirection(Vector2f direction) {
 Vector2f Player::getDirection() {
 	return direction;
 }
-void Player::prendDesDegats() {
+void Player::prendDesDegats(RenderWindow& window) {
 	if (pv > 0) {
 		--pv;
 		cout << "Pv aprés avoir pris les degats : " << pv << endl;
-		updateHealthBar();
+		updateHealthBar(window,playerSprite->getPosition());
 	}
 }
-void Player::soigneDesPv() {
+void Player::soigneDesPv(RenderWindow& window) {
 	++pv;
 	cout << "Pv aprés les soins : " << pv << endl;
-	updateHealthBar();
+	updateHealthBar(window,playerSprite->getPosition());
 }
 int Player::getPv() const {
 	return pv;
 }
-void Player::updateHealthBar() {
+void Player::updateHealthBar(RenderWindow& window, const Vector2f& playerPosition){
+
 	healthBar.clear();
+	View view = window.getView();
+	FloatRect viewport = view.getViewport();
+	Vector2f healthBarPosition(viewport.left + playerPosition.x - 645.0f,viewport.top + playerPosition.y - 480.0f);
 	for (int i = 0; i < pv; ++i) {
 		auto heart = make_unique<Sprite>();
 		heart->setTexture(playerTexture); // texture pour les pv a remplacer par le playerTexture
-		heart->setPosition(10 + i * 30, 10);
+		heart->setPosition(healthBarPosition + Vector2f(i * 30, 10)); // position du pv (x, y));
 		healthBar.push_back(move(heart));
 	}
 }

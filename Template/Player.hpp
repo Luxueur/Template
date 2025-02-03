@@ -3,6 +3,9 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <memory>
+#include "Camera.hpp"
+
 using namespace sf;
 using namespace std;
 
@@ -10,18 +13,19 @@ class Player
 {
 public:
 	Player();
-	void update(float deltaTime);
+	void update(RenderWindow& window,float deltaTime);
 	void render(RenderWindow& window);
 	void setDirection(Vector2f direction);
 	Vector2f getDirection();
-	void prendDesDegats();
-	void soigneDesPv();
+	void prendDesDegats(RenderWindow& window);
+	void soigneDesPv(RenderWindow& window);
 	int getPv()const;
+	void updateHealthBar(RenderWindow& window, const Vector2f& playerPosition);
 	unique_ptr<Sprite> playerSprite;
+	
 private:
 	void loadTextures();
 	void updateAnimation(float deltaTime);
-	void updateHealthBar();
 	enum class State { Idle, Walk };
 	State currentState;
 	vector<shared_ptr<Texture>> idleTextures;
@@ -34,4 +38,5 @@ private:
 	float speed;
 	float animationTime;
 	size_t currentFrame;
+	
 };
