@@ -12,7 +12,7 @@ Vector2f Entity::getPosition() const {
     return enemy.getPosition();
 }
 
-void Entity::update(float deltaTime) {}
+void Entity::update(float deltaTime,RenderWindow& window) {}
 
 void Entity::draw(RenderWindow& window) {
     window.draw(enemy);

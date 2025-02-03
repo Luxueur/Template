@@ -71,12 +71,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Users\alves\Documents\Template\Template\SFML-2.6.2-windows-vc17-64-bit\SFML-2.6.2\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\alves\Documents\Template\Template\SFML-2.6.2-windows-vc17-64-bit\SFML-2.6.2\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\SFML-2.6.2-windows-vc17-64-bit\SFML-2.6.2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\SFML-2.6.2-windows-vc17-64-bit\SFML-2.6.2\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\alves\Downloads\SFML-2.6.2-windows-vc17-64-bit\SFML-2.6.2\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\alves\Downloads\SFML-2.6.2-windows-vc17-64-bit\SFML-2.6.2\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\SFML-2.6.2-windows-vc17-64-bit\SFML-2.6.2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\SFML-2.6.2-windows-vc17-64-bit\SFML-2.6.2\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -112,10 +112,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;sfml-audio.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

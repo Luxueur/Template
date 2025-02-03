@@ -18,7 +18,7 @@ public:
     Vector2f getPosition() const;
 
     // Virtual functions for updating and drawing
-    virtual void update(float deltaTime);
+    virtual void update(float deltaTime,RenderWindow& window);
     virtual void draw(RenderWindow& window);
 
 protected:

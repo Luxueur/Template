@@ -45,8 +45,8 @@ Map::Map() {
 	textureFleche.loadFromFile("Images/Deco/fleche.png");
 	textureOs.loadFromFile("Images/Deco/os.png");
 
-	int frame = 0;
-	int frame6 = 0;
+	frame = 0;
+	frame6 = 0;
 	timeSinceLastFrameMap = 0.f ;
 	timeSinceLastFrameMap6 = 0.f ;
 
