@@ -50,7 +50,6 @@ Game::Game() {
 	exitButtonFont.setFont(fontMain); exitButtonFont.setCharacterSize(40); exitButtonFont.setPosition(Vector2f(float(screenWidth / 2), float(screenlenght) / 2 + 5)); exitButtonFont.setFillColor(Color::Black);
 	textExitBounds = exitButtonFont.getLocalBounds(); exitButtonFont.setOrigin(textExitBounds.left + textExitBounds.width / 2.0f, textExitBounds.top + textExitBounds.height / 2.0f);
 
-
 }
 
 void Game::playingGame() {
@@ -58,10 +57,11 @@ void Game::playingGame() {
 	m->loadMap();
 
 	Player player;
+	Camera* camera = new Camera(screenWidth, screenlenght);
 	InputHandler handleInput;
 	TorcheEnemy torche(&player);
-	Clock clock,clock6;
-	Clock clockMap,clockMap6; 
+	Clock clock, clock6;
+	Clock clockMap, clockMap6;
 	while (window->isOpen()) {
 		Event event;
 		while (window->pollEvent(event)) {
@@ -72,22 +72,24 @@ void Game::playingGame() {
 
 		Vector2f direction = player.getDirection();
 		handleInput.handleInput(event, direction);
+		camera->update(player.playerSprite->getPosition());
+		camera->apply(*window);
 		player.setDirection(direction);
 
+
 		float deltaTime = clock.restart().asSeconds();
-		player.update(deltaTime);
-		float deltaTime6 = clock6.restart().asSeconds(); 
+		float deltaTime6 = clock6.restart().asSeconds();
+		player.update(*window, deltaTime);
 
 		if (Keyboard::isKeyPressed(Keyboard::H)) {
-			player.prendDesDegats();
+			player.prendDesDegats(*window);
 		}
 		if (Keyboard::isKeyPressed(Keyboard::J)) {
-			player.soigneDesPv();
+			player.soigneDesPv(*window);
 		}
 
-		float deltaTimeMap = clockMap.restart().asSeconds(); 
-		float deltaTimeMap6 = clockMap6.restart().asSeconds(); 
-		m->update(deltaTimeMap,deltaTimeMap6); 
+		float deltaTimeMap6 = clockMap6.restart().asSeconds();
+		m->update(deltaTime, deltaTimeMap6);
 
 		window->clear();
 		window->clear(Color(71, 171, 169));
@@ -100,11 +102,13 @@ void Game::playingGame() {
 		window->display();
 
 	}
+	delete camera;
 }
 
 void Game::mainMenu() {
-	Event event;
+
 	while (window->isOpen()) {
+		Event event;
 		while (window->pollEvent(event)) {
 			if (event.type == Event::Closed)
 				window->close();
@@ -115,7 +119,6 @@ void Game::mainMenu() {
 			else if (event.type == Event::MouseButtonPressed and Mouse::isButtonPressed(Mouse::Left)) {
 				if (onStart) {
 					state = GameState::Playing;
-
 					//Player - joueur - map
 					return gameloop();
 				}
@@ -177,7 +180,6 @@ void Game::gameloop() {
 	while (window->isOpen()) {
 		if (state == GameState::Menu) {
 			mainMenu();
-		
 		}
 		else if (state == GameState::Pause) {
 			pauseMenu();

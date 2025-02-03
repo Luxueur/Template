@@ -13,8 +13,7 @@ class Player
 {
 public:
 	Player();
-<<<<<<< Updated upstream
-	void update(RenderWindow& window,float deltaTime);
+	void update(RenderWindow& window, float deltaTime);
 	void render(RenderWindow& window);
 	void setDirection(Vector2f direction);
 	Vector2f getDirection();
@@ -23,7 +22,7 @@ public:
 	int getPv()const;
 	void updateHealthBar(RenderWindow& window, const Vector2f& playerPosition);
 	unique_ptr<Sprite> playerSprite;
-	
+
 private:
 	void loadTextures();
 	void updateAnimation(float deltaTime);
@@ -39,16 +38,5 @@ private:
 	float speed;
 	float animationTime;
 	size_t currentFrame;
-	
-=======
-	void update(float deltaTime);
-	void render(RenderWindow& window);
-	void setDirection(Vector2f direction);
-	Vector2f getDirection();
-private:
-	Texture playerTexture;
-	Sprite playerSprite;
-	Vector2f direction;
-	float speed;
->>>>>>> Stashed changes
+
 };

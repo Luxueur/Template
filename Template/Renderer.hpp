@@ -37,7 +37,7 @@ public:
 
 	Map();
 
-	void update(float deltaTimeMap,float deltaTimeMap6);
+	void update(float deltaTime,float deltaTimeMap6);
 
 	void collision();
 

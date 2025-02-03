@@ -39,9 +39,9 @@ Map::Map() {
 
 };
 
-void Map::update(float deltaTimeMap,float deltaTimeMap6) {
+void Map::update(float deltaTime,float deltaTimeMap6) {
 	
-	timeSinceLastFrameMap += deltaTimeMap;
+	timeSinceLastFrameMap += deltaTime;
 	timeSinceLastFrameMap6 += deltaTimeMap6; 
 
 	if (timeSinceLastFrameMap >= 0.1f) {
