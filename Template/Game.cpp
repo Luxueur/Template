@@ -76,7 +76,6 @@ void Game::playingGame() {
 		camera->apply(*window);
 		player.setDirection(direction);
 
-
 		float deltaTime = clock.restart().asSeconds();
 		float deltaTime6 = clock6.restart().asSeconds();
 		player.update(*window, deltaTime);

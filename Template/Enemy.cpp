@@ -10,13 +10,13 @@ Enemy::~Enemy() {}
 
 void Enemy::update(float deltaTime) {
     // Handle animation timing
-    timeSinceLastFrame += deltaTime;
+    //timeSinceLastFrame += deltaTime;
 
-        if (timeSinceLastFrame >= animationSpeed) {
-            timeSinceLastFrame = 0.0f;
-            currentFrame = (currentFrame + 1) % frames.size();
-            enemy.setTexture(frames[currentFrame]);
-        }
+    //    if (timeSinceLastFrame >= animationSpeed) {
+    //        timeSinceLastFrame = 0.0f;
+    //        currentFrame = (currentFrame + 1) % frames.size();
+    //        enemy.setTexture(frames[currentFrame]);
+    //    }
     
 }
 
@@ -28,44 +28,44 @@ void Enemy::draw(sf::RenderWindow& window) {
 TorcheEnemy::TorcheEnemy(Player* p) : Enemy(p), currentAnimationState(AnimationState::Idle) {
     // Load Idle animation frames
 
-    idleFrames.resize(6);
-    for (int i = 0; i < 6; ++i) {
-        if (!idleFrames[i].loadFromFile("Images/torche/idle" + std::to_string(i) + ".png")) {
-            throw std::runtime_error("Erreur : texture de l'enemy est introuvable.");
-        }
-    }
+    //idleFrames.resize(6);
+    //for (int i = 0; i < 6; ++i) {
+    //    if (!idleFrames[i].loadFromFile("Images/torche/idle" + std::to_string(i) + ".png")) {
+    //        throw std::runtime_error("Erreur : texture de l'enemy est introuvable.");
+    //    }
+    //}
 
-    walkFrames.resize(6); 
-    for (int i = 0; i < 6; ++i) {
-        if (!walkFrames[i].loadFromFile("Images/torche/walk" + std::to_string(i + 1) + ".png")) {
-            throw std::runtime_error("Erreur : texture de l'enemy est introuvable.");
-        }
-    }
+    //walkFrames.resize(6); 
+    //for (int i = 0; i < 6; ++i) {
+    //    if (!walkFrames[i].loadFromFile("Images/torche/walk" + std::to_string(i + 1) + ".png")) {
+    //        throw std::runtime_error("Erreur : texture de l'enemy est introuvable.");
+    //    }
+    //}
 
-    attackFrames.resize(6);
-    for (int i = 0; i < 6; ++i) {
-        if (!attackFrames[i].loadFromFile("Images/torche/atk1" + std::to_string(i + 1) + ".png")) {
-            throw std::runtime_error("Erreur : texture de l'enemy est introuvable.");
-        }
-    }
-    /*
-    attack2Frames.resize(6);
-    for (int i = 0; i < 6; ++i) {
-        if (!attack2Frames[i].loadFromFile("Images/torche/atk2" + std::to_string(i + 1) + ".png")) {
-            throw std::runtime_error("Erreur : texture de l'enemy est introuvable.");
-        }
-    }
-    
-    attack3Frames.resize(6);
-    for (int i = 0; i < 6; ++i) {
-        if (!attack3Frames[i].loadFromFile("Images/torche/atk3" + std::to_string(i + 1) + ".png")) {
-            throw std::runtime_error("Erreur : texture de l'enemy est introuvable.");
-        }
-    }*/
+    //attackFrames.resize(6);
+    //for (int i = 0; i < 6; ++i) {
+    //    if (!attackFrames[i].loadFromFile("Images/torche/atk1" + std::to_string(i + 1) + ".png")) {
+    //        throw std::runtime_error("Erreur : texture de l'enemy est introuvable.");
+    //    }
+    //}
+    ///*
+    //attack2Frames.resize(6);
+    //for (int i = 0; i < 6; ++i) {
+    //    if (!attack2Frames[i].loadFromFile("Images/torche/atk2" + std::to_string(i + 1) + ".png")) {
+    //        throw std::runtime_error("Erreur : texture de l'enemy est introuvable.");
+    //    }
+    //}
+    //
+    //attack3Frames.resize(6);
+    //for (int i = 0; i < 6; ++i) {
+    //    if (!attack3Frames[i].loadFromFile("Images/torche/atk3" + std::to_string(i + 1) + ".png")) {
+    //        throw std::runtime_error("Erreur : texture de l'enemy est introuvable.");
+    //    }
+    //}*/
 
-    // Set the initial texture (idle frame)
-    enemy.setTexture(idleFrames[0]);
-    enemy.setPosition(935, 515); // Set position
+    //// Set the initial texture (idle frame)
+    //enemy.setTexture(idleFrames[0]);
+    //enemy.setPosition(935, 515); // Set position
 }
 
 TorcheEnemy::~TorcheEnemy() {}
@@ -138,11 +138,10 @@ void TorcheEnemy::enemyMove() {
 }*/
 
 void TorcheEnemy::attaque() {
-    float distance = sqrt(pow(player->playerSprite->getPosition().x - enemy.getPosition().x, 2) +
-        pow(player->playerSprite->getPosition().y - enemy.getPosition().y, 2));
+    float distance = sqrt(pow(player->playerSprite->getPosition().x - enemy.getPosition().x, 2) + pow(player->playerSprite->getPosition().y - enemy.getPosition().y, 2));
     if (distance < 20.0f) {
         // Attack logic here (e.g., reduce player health)
-        player->prendDesDegats();
+        //player->prendDesDegats();
         cout << "Player is within attack range!" << std::endl;
     }
 }

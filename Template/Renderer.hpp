@@ -44,5 +44,4 @@ public:
 	void loadMap();
 
 	void draw(RenderWindow& window);
-
 };
