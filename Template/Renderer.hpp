@@ -13,7 +13,7 @@ class Map {
 public:
 
 	Texture textureMer, textureRocks, textureSable, textureSolCarreJaune, textureSolJaune, textureSolJaune_, textureSolJauneL,textureSolCarreVert, textureSolVert,textureSolVert_, textureSolVertL, textureElevationCarre, textureElevationL, textureElevation_, textureElevation, textureEscalier_, textureEscalier;
-	Texture textureTree;
+	Texture textureTree, textureSheepBouncing, textureSheep,texturePawn,textureCastle, textureCastleD,textureArcher, textureGoblinHouse,textureCitrouille, textureEpouventail, textureChamp, textureBuisson, textureCroix, textureFleche, textureOs;
 	vector<Sprite*> mers;
 	vector<Sprite*> herbeVert; 
 	vector<Sprite*> herbeVert_; 
@@ -31,6 +31,15 @@ public:
 	vector<Sprite*> vEscalier_;
 	vector<Sprite*> vEscalier;
 	vector<Sprite*> trees;
+	vector<Sprite*> sheeps;
+	vector<Sprite*> sheepsBouncing;
+	vector<Sprite*> pawnsM;
+	vector<Sprite*> pawnsH;
+	vector<Sprite*> vCastles;
+	vector<Sprite*> vCastleDs;
+	vector<Sprite*> vArcher;
+	vector<Sprite*> goblinHouses;
+	vector<Sprite*> osS,epouventailS,citrouilleS,champS,buissonS,flecheS,croixS;
 
 	int frame,frame6;
 	float timeSinceLastFrameMap, timeSinceLastFrameMap6;

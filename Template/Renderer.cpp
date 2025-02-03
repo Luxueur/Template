@@ -29,8 +29,21 @@ Map::Map() {
 	textureEscalier.loadFromFile("Images/Terrain/Ground/Escalier.png");
 	textureEscalier.loadFromFile("Images/Terrain/Ground/Escalier.png");
 	textureTree.loadFromFile("Images/Resources/Trees/TreeC.png");
-	
-	
+	textureSheep.loadFromFile("Images/Resources/Sheep/Sheep.png");
+	textureSheepBouncing.loadFromFile("Images/Resources/Sheep/SheepBouncing.png");
+	texturePawn.loadFromFile("Images/Resources/Sheep/Troupe.png");
+	textureCastle.loadFromFile("Images/Factions/Knights/Buildings/Castle/Castle.png");
+	textureCastleD.loadFromFile("Images/Factions/Knights/Buildings/Castle/CastleD.png");
+	textureArcher.loadFromFile("Images/Factions/Knights/Troops/Archer/Blue/Archer_Blue.png");
+	textureGoblinHouse.loadFromFile("Images/Factions/Goblins/Buildings/Wood_House/GoblinHouse.png");
+
+	textureBuisson.loadFromFile("Images/Deco/buisson.png");
+	textureChamp.loadFromFile("Images/Deco/champ.png");
+	textureCitrouille.loadFromFile("Images/Deco/citrouille.png");
+	textureCroix.loadFromFile("Images/Deco/croix.png");
+	textureEpouventail.loadFromFile("Images/Deco/epouventail.png");
+	textureFleche.loadFromFile("Images/Deco/fleche.png");
+	textureOs.loadFromFile("Images/Deco/os.png");
 
 	int frame = 0;
 	int frame6 = 0;
@@ -59,7 +72,6 @@ void Map::update(float deltaTime,float deltaTimeMap6) {
 	if (frame6 > 5) {
 		frame6 = 0;
 	}
-
 	for (auto& mer : mers) {
 		mer->setTextureRect(IntRect(frame * 192, 0, 96, 85));
 	}
@@ -69,6 +81,23 @@ void Map::update(float deltaTime,float deltaTimeMap6) {
 	for (auto& tree : trees) {
 		tree->setTextureRect(IntRect(frame6 * 192, 0, 192, 192));
 	}
+	for (auto& sheeps : sheeps) {
+		sheeps->setTextureRect(IntRect(frame * 128, 0, 128, 128));
+	}
+	for (auto& sheepsBouncing : sheepsBouncing) {
+		sheepsBouncing->setTextureRect(IntRect(frame6 * 128, 0, 128, 128));
+	}
+	for (auto& pawnM : pawnsM) {
+		pawnM->setTextureRect(IntRect(frame6 * 192, 384, 192, 192));
+	}
+	for (auto& pawnH : pawnsH) {
+		pawnH->setTextureRect(IntRect(frame6 * 192, 576, 192, 192));
+	}
+	for (auto& archer : vArcher) {
+		archer->setTextureRect(IntRect(frame6 * 192, 0, 192, 192));
+	}
+
+
 }
 
 
@@ -207,9 +236,111 @@ void Map::loadMap() {
 				trees.push_back(tree);
 				break;
 			}
-
-
-
+			case 'H': {
+				Sprite* sheep = new Sprite;
+				sheep->setTexture(textureSheep);
+				sheep->setPosition({ (float)i * 64, (float)z * 64 });
+				sheeps.push_back(sheep);
+				break;
+			}
+			case 'I': {
+				Sprite* sheepBouncing = new Sprite;
+				sheepBouncing->setTexture(textureSheepBouncing);
+				sheepBouncing->setPosition({ (float)i * 64, (float)z * 64 });
+				sheepsBouncing.push_back(sheepBouncing);
+				break;
+			}
+			case 'J': {
+				Sprite* pawnM = new Sprite;
+				pawnM->setTexture(texturePawn);
+				pawnM->setPosition({ (float)i * 64, (float)z * 64 });
+				pawnsM.push_back(pawnM);
+				break;
+			}
+			case 'K': {
+				Sprite* pawnH = new Sprite;
+				pawnH->setTexture(texturePawn);
+				pawnH->setPosition({ (float)i * 64, (float)z * 64 });
+				pawnsH.push_back(pawnH);
+				break;
+			}
+			case 'L': {
+				Sprite* castle = new Sprite;
+				castle->setTexture(textureCastle);
+				castle->setPosition({ (float)i * 64, (float)z * 64 });
+				vCastles.push_back(castle);
+				break;
+			}
+			case 'M': {
+				Sprite* castleD = new Sprite;
+				castleD->setTexture(textureCastleD);
+				castleD->setPosition({ (float)i * 64, (float)z * 64 });
+				vCastleDs.push_back(castleD);
+				break;
+			}
+			case 'N': {
+				Sprite* archer = new Sprite;
+				archer->setTexture(textureArcher);
+				archer->setPosition({ (float)i * 64, (float)z * 64 });
+				vArcher.push_back(archer);
+				break;
+			}
+			case 'O': {
+				Sprite* goblinHouse = new Sprite;
+				goblinHouse->setTexture(textureGoblinHouse);
+				goblinHouse->setPosition({ (float)i * 64, (float)z * 64 });
+				goblinHouses.push_back(goblinHouse);
+				break;
+			}
+			case 'P': {
+				Sprite* croix = new Sprite;
+				croix->setTexture(textureCroix);
+				croix->setPosition({ (float)i * 64, (float)z * 64 });
+				croixS.push_back(croix);
+				break;
+			}
+			case 'Q': {
+				Sprite* fleche = new Sprite;
+				fleche->setTexture(textureFleche);
+				fleche->setPosition({ (float)i * 64, (float)z * 64 });
+				flecheS.push_back(fleche);
+				break;
+			}
+			case 'R': {
+				Sprite* epouventail = new Sprite;
+				epouventail->setTexture(textureEpouventail);
+				epouventail->setPosition({ (float)i * 64, (float)z * 64 });
+				epouventailS.push_back(epouventail);
+				break;
+			}
+			case 'S': {
+				Sprite* citrouille = new Sprite;
+				citrouille->setTexture(textureCitrouille);
+				citrouille->setPosition({ (float)i * 64, (float)z * 64 });
+				citrouilleS.push_back(citrouille);
+				break;
+			}
+			case 'T': {
+				Sprite* champ = new Sprite;
+				champ->setTexture(textureChamp);
+				champ->setPosition({ (float)i * 64, (float)z * 64 });
+				champS.push_back(champ);
+				break;
+			}
+			case 'U': {
+				Sprite* os = new Sprite;
+				os->setTexture(textureOs);
+				os->setPosition({ (float)i * 64, (float)z * 64 });
+				osS.push_back(os);
+				break;
+			}
+			case 'V': {
+				Sprite* buisson = new Sprite;
+				buisson->setTexture(textureBuisson);
+				buisson->setPosition({ (float)i * 64, (float)z * 64 });
+				buissonS.push_back(buisson);
+				break;
+			}
 
 
 
@@ -471,6 +602,20 @@ void Map::loadMap() {
 				trees.push_back(tree);
 				break;
 			}
+			case 'H': {
+				Sprite* sheep = new Sprite;
+				sheep->setTexture(textureSheep);
+				sheep->setPosition({ (float)i * 64, (float)z * 64 });
+				sheeps.push_back(sheep);
+				break;
+			}
+			case 'I': {
+				Sprite* sheepBouncing = new Sprite;
+				sheepBouncing->setTexture(textureSheepBouncing);
+				sheepBouncing->setPosition({ (float)i * 64, (float)z * 64 });
+				sheepsBouncing.push_back(sheepBouncing);
+				break;
+			}
 			}
 			cout << endl;
 		}
@@ -529,5 +674,50 @@ void Map::draw(RenderWindow& window) {
 	}
 	for (auto& tree : trees) {
 		window.draw(*tree);
+	}
+	for (auto& sheep : sheeps) {
+		window.draw(*sheep);
+	}
+	for (auto& sheepBouncing : sheepsBouncing) {
+		window.draw(*sheepBouncing);
+	}
+	for (auto& pawnM : pawnsM) {
+		window.draw(*pawnM);
+	}
+	for (auto& pawnH : pawnsH) {
+		window.draw(*pawnH);
+	}
+	for (auto& castle : vCastles) {
+		window.draw(*castle);
+	}
+	for (auto& castleD : vCastleDs) {
+		window.draw(*castleD);
+	}
+	for (auto& archer : vArcher) {
+		window.draw(*archer);
+	}
+	for (auto& goblinHouse : goblinHouses) {
+		window.draw(*goblinHouse);
+	}
+	for (auto& croix : croixS) {
+		window.draw(*croix);
+	}
+	for (auto& fleche : flecheS) {
+		window.draw(*fleche);
+	}
+	for (auto& epouventail : epouventailS) {
+		window.draw(*epouventail);
+	}
+	for (auto& champ : champS) {
+		window.draw(*champ);
+	}
+	for (auto& citrouille : citrouilleS) {
+		window.draw(*citrouille);
+	}
+	for (auto& os : osS) {
+		window.draw(*os);
+	}
+	for (auto& buisson : buissonS) {
+		window.draw(*buisson);
 	}
 };
