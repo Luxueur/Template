@@ -7,9 +7,9 @@ using namespace std;
 using namespace sf;
 
 
-Game::Game() {
+Game::Game() : state(GameState::Menu), window(nullptr), onStart(false), onSettings(false), onExit(false) {
 
-	window = new RenderWindow(VideoMode(screenWidth, screenlenght), "Zeldo");
+	window = new RenderWindow(VideoMode(static_cast<unsigned int>(screenWidth), static_cast<unsigned int>(screenlenght)), "Zeldo");
 	window->setFramerateLimit(60);
 	Image icon;
 	icon.loadFromFile("icon.png");
@@ -79,6 +79,7 @@ void Game::playingGame() {
 		float deltaTime = clock.restart().asSeconds();
 		float deltaTime6 = clock6.restart().asSeconds();
 		player.update(*window, deltaTime);
+		torche.update(deltaTime,*window);
 
 		if (Keyboard::isKeyPressed(Keyboard::H)) {
 			player.prendDesDegats(*window);
@@ -89,16 +90,13 @@ void Game::playingGame() {
 
 		float deltaTimeMap6 = clockMap6.restart().asSeconds();
 		m->update(deltaTime, deltaTimeMap6);
-
-		window->clear();
+		torche.enemyMove();
+		torche.attaque(*window);
+		//window->clear();
 		window->clear(Color(71, 171, 169));
-
 		m->draw(*window);
 		player.render(*window);
 		torche.draw(*window);
-		torche.enemyMove();
-		torche.update(deltaTime,*window);
-		torche.attaque(*window);
 		window->display();
 
 	}

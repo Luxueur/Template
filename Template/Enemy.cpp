@@ -26,7 +26,7 @@ void Enemy::draw(sf::RenderWindow& window) {
 }
 
 // --- TorcheEnemy ---
-TorcheEnemy::TorcheEnemy(Player* p) : Enemy(p), currentAnimationState(AnimationState::Idle) {
+TorcheEnemy::TorcheEnemy(Player* p) : Enemy(p), currentAnimationState(AnimationState::Idle), currentFrame(0),animationSpeed(0.2f),timeSinceLastFrame(0.0f) {
     // Load Idle animation frames
 
     idleFrames.resize(6);

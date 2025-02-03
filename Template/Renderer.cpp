@@ -32,8 +32,8 @@ Map::Map() {
 	
 	
 
-	int frame = 0;
-	int frame6 = 0;
+	frame = 0;
+	frame6 = 0;
 	timeSinceLastFrameMap = 0.f ;
 	timeSinceLastFrameMap6 = 0.f ;
 
