@@ -21,6 +21,7 @@ public:
     virtual void draw(RenderWindow& window) override;
 
     virtual void enemyMove() = 0;
+    virtual void animation() = 0;
 
 protected:
     // To hold the animation frames (textures)
@@ -38,6 +39,7 @@ public:
     void update(float deltaTime) override;
     void draw(RenderWindow& window) override;
     void enemyMove() override;
+    void animation() override;
 };
 
 #endif // ENEMY_HPP

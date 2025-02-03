@@ -47,7 +47,7 @@ TorcheEnemy::TorcheEnemy(Player* p) : Enemy(p) {
         throw std::runtime_error("Erreur : texture de l'enemy est introuvable.");
     }
 
-    enemy.setTexture(frames[6]);
+    enemy.setTexture(frames[0]);
     enemy.setPosition(935, 515);
 
 }
@@ -82,4 +82,9 @@ void TorcheEnemy::enemyMove() {
         }
     }
     
+}
+
+
+void TorcheEnemy::animation() {
+
 }

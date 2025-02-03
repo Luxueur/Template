@@ -93,6 +93,7 @@ void Game::playingGame() {
 		player.render(*window);
 		torche.draw(*window);
 		torche.enemyMove();
+		torche.update(deltaTime);
 		window->display();
 
 	}
