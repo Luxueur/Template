@@ -1,11 +1,4 @@
 #include "Player.hpp"
-
-#include <iostream>
-#include <SFML/Graphics.hpp>
-#include <vector>
-#include "Camera.hpp"
-
-
 using namespace sf;
 using namespace std;
 
