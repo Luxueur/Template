@@ -9,6 +9,7 @@
 using namespace sf;
 using namespace std;
 
+<<<<<<< Updated upstream
 Player::Player() : pv(3), speed(200.0f), animationTime(0.0f), currentFrame(0), currentState(State::Idle) {
     loadTextures();
     playerSprite = make_unique<Sprite>();
@@ -87,10 +88,33 @@ void Player::setDirection(Vector2f direction) {
 	{
 		playerSprite->setScale(1.f,1.f);
 	}
+=======
+Player::Player() : speed(200.0f){
+	if (!playerTexture.loadFromFile("Images/Factions/Knights/Troops/Warrior/Blue/Idle/Warrior_Blue_Idle0.png"))
+	{
+		throw std::runtime_error("Phillipe Ou tu te caches ?");
+	}
+	playerSprite.setTexture(playerTexture);
+	playerSprite.setOrigin(Vector2f(playerTexture.getSize()) / 2.f);
+	playerSprite.setPosition(Vector2f(400.0f, 300.0f));
+}
+
+void Player::update(float deltaTime){
+	playerSprite.move(direction * speed * deltaTime);
+}
+
+void Player::render(RenderWindow& window){
+	window.draw(playerSprite);
+}
+
+void Player::setDirection(Vector2f direction){
+	this->direction = direction;
+>>>>>>> Stashed changes
 }
 
 Vector2f Player::getDirection() {
 	return direction;
+<<<<<<< Updated upstream
 }
 void Player::prendDesDegats(RenderWindow& window) {
 	if (pv > 0) {
@@ -130,3 +154,6 @@ void Player::updateAnimation(float deltaTime)
 		playerSprite->setTexture(* (currentState == State::Idle ? idleTextures[currentFrame] : walkTextures[currentFrame]));
 	}
 }
+=======
+}
+>>>>>>> Stashed changes

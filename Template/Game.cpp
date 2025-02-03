@@ -50,6 +50,7 @@ Game::Game() {
 	exitButtonFont.setFont(fontMain); exitButtonFont.setCharacterSize(40); exitButtonFont.setPosition(Vector2f(float(screenWidth / 2), float(screenlenght) / 2 + 5)); exitButtonFont.setFillColor(Color::Black);
 	textExitBounds = exitButtonFont.getLocalBounds(); exitButtonFont.setOrigin(textExitBounds.left + textExitBounds.width / 2.0f, textExitBounds.top + textExitBounds.height / 2.0f);
 
+
 }
 
 void Game::playingGame() {
@@ -102,9 +103,8 @@ void Game::playingGame() {
 }
 
 void Game::mainMenu() {
-
+	Event event;
 	while (window->isOpen()) {
-		Event event;
 		while (window->pollEvent(event)) {
 			if (event.type == Event::Closed)
 				window->close();
@@ -115,6 +115,7 @@ void Game::mainMenu() {
 			else if (event.type == Event::MouseButtonPressed and Mouse::isButtonPressed(Mouse::Left)) {
 				if (onStart) {
 					state = GameState::Playing;
+
 					//Player - joueur - map
 					return gameloop();
 				}
@@ -176,6 +177,7 @@ void Game::gameloop() {
 	while (window->isOpen()) {
 		if (state == GameState::Menu) {
 			mainMenu();
+		
 		}
 		else if (state == GameState::Pause) {
 			pauseMenu();

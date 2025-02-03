@@ -13,6 +13,7 @@ class Player
 {
 public:
 	Player();
+<<<<<<< Updated upstream
 	void update(RenderWindow& window,float deltaTime);
 	void render(RenderWindow& window);
 	void setDirection(Vector2f direction);
@@ -39,4 +40,15 @@ private:
 	float animationTime;
 	size_t currentFrame;
 	
+=======
+	void update(float deltaTime);
+	void render(RenderWindow& window);
+	void setDirection(Vector2f direction);
+	Vector2f getDirection();
+private:
+	Texture playerTexture;
+	Sprite playerSprite;
+	Vector2f direction;
+	float speed;
+>>>>>>> Stashed changes
 };
