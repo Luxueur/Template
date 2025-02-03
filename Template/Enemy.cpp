@@ -47,7 +47,7 @@ TorcheEnemy::TorcheEnemy(Player* p) : Enemy(p) {
         throw std::runtime_error("Erreur : texture de l'enemy est introuvable.");
     }
 
-    enemy.setTexture(frames[0]);
+    enemy.setTexture(frames[6]);
     enemy.setPosition(935, 515);
 
 }
@@ -63,16 +63,23 @@ void TorcheEnemy::draw(RenderWindow& window) {
 }
 
 void TorcheEnemy::enemyMove() {
-    if (enemy.getPosition().x > player->playerSprite->getPosition().x) {
-        enemy.move(-1.5f, 0);
+    if (player->playerSprite->getPosition().x > enemy.getPosition().x + 100 ||
+        player->playerSprite->getPosition().x > enemy.getPosition().y + 100 || 
+        player->playerSprite->getPosition().y > enemy.getPosition().x + 100 ||
+        player->playerSprite->getPosition().y > enemy.getPosition().y + 100) {
+
+        if (enemy.getPosition().x > player->playerSprite->getPosition().x) {
+            enemy.move(-1.5f, 0);
+        }
+        if (enemy.getPosition().x < player->playerSprite->getPosition().x) {
+            enemy.move(1.5f, 0);
+        }
+        if (enemy.getPosition().y > player->playerSprite->getPosition().y) {
+            enemy.move(0, -1.5f);
+        }
+        if (enemy.getPosition().y < player->playerSprite->getPosition().y) {
+            enemy.move(0, 1.5f);
+        }
     }
-    if (enemy.getPosition().x < player->playerSprite->getPosition().x) {
-        enemy.move(1.5f, 0);
-    }
-    if (enemy.getPosition().y > player->playerSprite->getPosition().y) {
-        enemy.move(0, -1.5f);
-    }
-    if (enemy.getPosition().y < player->playerSprite->getPosition().y) {
-        enemy.move(0, 1.5f);
-    }
+    
 }
