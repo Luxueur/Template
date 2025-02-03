@@ -64,15 +64,15 @@ void TorcheEnemy::draw(RenderWindow& window) {
 
 void TorcheEnemy::enemyMove() {
     if (enemy.getPosition().x > player->playerSprite->getPosition().x) {
-        enemy.move(-0.01f, 0);
+        enemy.move(-1.5f, 0);
     }
     if (enemy.getPosition().x < player->playerSprite->getPosition().x) {
-        enemy.move(0.01f, 0);
+        enemy.move(1.5f, 0);
     }
     if (enemy.getPosition().y > player->playerSprite->getPosition().y) {
-        enemy.move(0, -0.01f);
+        enemy.move(0, -1.5f);
     }
     if (enemy.getPosition().y < player->playerSprite->getPosition().y) {
-        enemy.move(0, 0.01f);
+        enemy.move(0, 1.5f);
     }
 }

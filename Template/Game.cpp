@@ -92,6 +92,7 @@ void Game::playingGame() {
 		m->draw(*window);
 		player.render(*window);
 		torche.draw(*window);
+		torche.enemyMove();
 		window->display();
 
 	}
