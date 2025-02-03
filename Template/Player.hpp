@@ -14,19 +14,22 @@ public:
 	void render(RenderWindow& window);
 	void setDirection(Vector2f direction);
 	Vector2f getDirection();
-	Sprite playerSprite;
+	void prendDesDegats();
+	void soigneDesPv();
+	int getPv()const;
+	unique_ptr<Sprite> playerSprite;
 private:
 	void loadTextures();
 	void updateAnimation(float deltaTime);
-	
+	void updateHealthBar();
 	enum class State { Idle, Walk };
 	State currentState;
-	
 	vector<shared_ptr<Texture>> idleTextures;
 	vector<shared_ptr<Texture>> walkTextures;
-	unique_ptr<Sprite> playerSprite;
+	vector<shared_ptr<Sprite>> healthBar;
+	//shared_ptr<Texture> heartTexture;
+	int pv;
 	Texture playerTexture;
-	//Sprite playerSprite;
 	Vector2f direction;
 	float speed;
 	float animationTime;

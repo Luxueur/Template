@@ -23,7 +23,8 @@ void Enemy::draw(sf::RenderWindow& window) {
 }
 
 // --- TorcheEnemy ---
-TorcheEnemy::TorcheEnemy(Player* p) : Enemy (p) {
+TorcheEnemy::TorcheEnemy(Player* p) : Enemy(p) {
+    frames.resize(7); 
     if (!frames[0].loadFromFile("Images/torche/idle1.png")) {
         throw std::runtime_error("Erreur : texture de l'enemy est introuvable.");
     }
@@ -62,16 +63,16 @@ void TorcheEnemy::draw(RenderWindow& window) {
 }
 
 void TorcheEnemy::enemyMove() {
-    if (enemy.getPosition().x > player->playerSprite.getPosition().x) {
+    if (enemy.getPosition().x > player->playerSprite->getPosition().x) {
         enemy.move(-0.01f, 0);
     }
-    if (enemy.getPosition().x < player->playerSprite.getPosition().x) {
+    if (enemy.getPosition().x < player->playerSprite->getPosition().x) {
         enemy.move(0.01f, 0);
     }
-    if (enemy.getPosition().y > player->playerSprite.getPosition().y) {
+    if (enemy.getPosition().y > player->playerSprite->getPosition().y) {
         enemy.move(0, -0.01f);
     }
-    if (enemy.getPosition().y < player->playerSprite.getPosition().y) {
+    if (enemy.getPosition().y < player->playerSprite->getPosition().y) {
         enemy.move(0, 0.01f);
     }
 }

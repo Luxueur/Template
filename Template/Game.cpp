@@ -76,6 +76,13 @@ void Game::playingGame() {
 		float deltaTime = clock.restart().asSeconds();
 		player.update(deltaTime);
 
+		if (Keyboard::isKeyPressed(Keyboard::H)) {
+			player.prendDesDegats();
+		}
+		if (Keyboard::isKeyPressed(Keyboard::J)) {
+			player.soigneDesPv();
+		}
+
 		float deltaTimeMap = clockMap.restart().asSeconds(); 
 		m->update(deltaTimeMap); 
 
@@ -84,7 +91,7 @@ void Game::playingGame() {
 
 		m->draw(*window);
 		player.render(*window);
-		//torche.draw(*window);
+		torche.draw(*window);
 		window->display();
 
 	}

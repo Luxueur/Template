@@ -7,12 +7,21 @@
 using namespace sf;
 using namespace std;
 
-Player::Player() : speed(200.0f), animationTime(0.0f), currentFrame(0), currentState(State::Idle) {
+Player::Player() : pv(3), speed(200.0f), animationTime(0.0f), currentFrame(0), currentState(State::Idle) {
     loadTextures();
     playerSprite = make_unique<Sprite>();
     playerSprite->setTexture(*idleTextures[0]);
     playerSprite->setOrigin(Vector2f(idleTextures[0]->getSize()) / 2.f);
     playerSprite->setPosition(Vector2f(400.0f, 300.0f));
+
+	for (int i = 0; i < pv; i++)
+	{
+		auto heart = make_unique<Sprite>();
+		heart->setTexture(playerTexture); //texture pour les pv a rajouter et remplacer par celle du player
+		heart->setPosition(10+i*30,10);
+		healthBar.push_back(move(heart));
+	}
+	cout << "initialisation des pv: " << pv << endl;
 }
 
 void Player::loadTextures()
@@ -32,16 +41,25 @@ void Player::loadTextures()
 		}
 		walkTextures.push_back(texture);
 	}
+
+	if (!playerTexture.loadFromFile("Images/Factions/Knights/Troops/Warrior/Blue/Idle/Warrior_Blue_Idle0.png")) {
+		throw std::runtime_error("Failed to load future health texture");
+	}
 }
 
 
 void Player::update(float deltaTime) {
 	playerSprite->move(direction * speed * deltaTime);
 	updateAnimation(deltaTime);
+	updateHealthBar();
 }
 
 void Player::render(RenderWindow& window) {
 	window.draw(*playerSprite);
+	for (const auto& heart: healthBar)
+	{
+		window.draw(*heart);
+	}
 }
 
 void Player::setDirection(Vector2f direction) {
@@ -67,7 +85,30 @@ void Player::setDirection(Vector2f direction) {
 Vector2f Player::getDirection() {
 	return direction;
 }
-
+void Player::prendDesDegats() {
+	if (pv > 0) {
+		--pv;
+		cout << "Pv aprés avoir pris les degats : " << pv << endl;
+		updateHealthBar();
+	}
+}
+void Player::soigneDesPv() {
+	++pv;
+	cout << "Pv aprés les soins : " << pv << endl;
+	updateHealthBar();
+}
+int Player::getPv() const {
+	return pv;
+}
+void Player::updateHealthBar() {
+	healthBar.clear();
+	for (int i = 0; i < pv; ++i) {
+		auto heart = make_unique<Sprite>();
+		heart->setTexture(playerTexture); // texture pour les pv a remplacer par le playerTexture
+		heart->setPosition(10 + i * 30, 10);
+		healthBar.push_back(move(heart));
+	}
+}
 void Player::updateAnimation(float deltaTime)
 {
 	animationTime += deltaTime;
