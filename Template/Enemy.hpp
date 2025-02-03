@@ -18,13 +18,13 @@ public:
     Enemy(Player* p);
     ~Enemy();
     
-    //bool checkCollision() const;
+    bool checkCollision() const;
 
-    virtual void update(float deltaTime) override;
+    virtual void update(float deltaTime,RenderWindow& window) override;
     virtual void draw(RenderWindow& window) override;
 
     virtual void enemyMove() = 0;
-    virtual void attaque() = 0;
+    virtual void attaque(RenderWindow& window) = 0;
 
 protected:
     // To hold the animation frames (textures)
@@ -40,10 +40,10 @@ public:
     TorcheEnemy(Player* p);
     ~TorcheEnemy();
 
-    void update(float deltaTime) override;
+    void update(float deltaTime,RenderWindow& window) override;
     void draw(RenderWindow& window) override;
     void enemyMove() override;
-    void attaque() override;
+    void attaque(RenderWindow& window) override;
 
 private:
     // Vectors to hold animation frames for each type

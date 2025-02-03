@@ -97,8 +97,8 @@ void Game::playingGame() {
 		player.render(*window);
 		torche.draw(*window);
 		torche.enemyMove();
-		torche.update(deltaTime);
-		torche.attaque();
+		torche.update(deltaTime,*window);
+		torche.attaque(*window);
 		window->display();
 
 	}
