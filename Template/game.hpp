@@ -50,6 +50,7 @@ public:
 		Menu,
 		Adventure,
 		Pause,
+		Playing,
 		Settings,
 		Exit
 	};
