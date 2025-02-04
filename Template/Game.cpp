@@ -60,8 +60,21 @@ void Game::playingGame() {
 	Camera* camera = new Camera(screenWidth, screenlenght);
 	InputHandler handleInput;
 	TorcheEnemy torche(&player);
+	ThreadManager threadManager;
 	Clock clock, clock6;
 	Clock clockMap, clockMap6;
+
+	TorcheEnemy enemy1(&player);
+	TorcheEnemy enemy2(&player);
+
+	enemy1.setPosition(100.0f, 100.0f);
+	enemy2.setPosition(200.0f, 200.0f);
+
+	threadManager.addEnemy(&enemy1);
+	threadManager.addEnemy(&enemy2);
+
+	threadManager.start(*window);
+
 	while (window->isOpen()) {
 		Event event;
 		while (window->pollEvent(event)) {
@@ -79,7 +92,8 @@ void Game::playingGame() {
 		float deltaTime = clock.restart().asSeconds();
 		float deltaTime6 = clock6.restart().asSeconds();
 		player.update(*window, deltaTime);
-		torche.update(deltaTime,*window);
+		enemy1.update(deltaTime, *window);
+		enemy2.update(deltaTime, *window);
 
 		if (Keyboard::isKeyPressed(Keyboard::H)) {
 			player.prendDesDegats(*window);
@@ -90,16 +104,20 @@ void Game::playingGame() {
 
 		float deltaTimeMap6 = clockMap6.restart().asSeconds();
 		m->update(deltaTime, deltaTimeMap6);
-		torche.enemyMove();
-		torche.attaque(*window);
+
+
 		//window->clear();
 		window->clear(Color(71, 171, 169));
 		m->draw(*window);
 		player.render(*window);
-		torche.draw(*window);
+		
+		threadManager.updateEnemies(0.016f, *window);
+		enemy1.draw(*window);
+		enemy2.draw(*window);
 		window->display();
 
 	}
+	threadManager.stop();
 	delete camera;
 }
 

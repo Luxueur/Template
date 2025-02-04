@@ -8,6 +8,8 @@
 #include <iostream>
 #include <stdexcept>
 #include <cmath>
+#include <thread> 
+#include <mutex>  
 
 using namespace sf;
 using namespace std;
@@ -20,18 +22,25 @@ public:
     
     bool checkCollision() const;
 
-    virtual void update(float deltaTime,RenderWindow& window) override;
+    //virtual void update(float deltaTime,RenderWindow& window) override;
     virtual void draw(RenderWindow& window) override;
 
     virtual void enemyMove() = 0;
     virtual void attaque(RenderWindow& window) = 0;
 
-protected:
+    void startThread(RenderWindow& window);
+    void stopThread();
+ 
+private:
     // To hold the animation frames (textures)
-    vector<Texture> frames;
+    vector<Texture> idleFrames;  // Idle animation frames
+
     int currentFrame;
     float animationSpeed;
     float timeSinceLastFrame;
+    thread enemyThread;
+    bool running;
+    mutex mtx;
 
 };
 
@@ -47,9 +56,11 @@ public:
 
 private:
     // Vectors to hold animation frames for each type
-    std::vector<sf::Texture> idleFrames;  // Idle animation frames
-    std::vector<sf::Texture> walkFrames;  // Walk animation frames
-    std::vector<sf::Texture> attackFrames; // Attack animation frames
+    vector<Texture> idleFrames;  // Idle animation frames
+    vector<Texture> walkFrames;  // Walk animation frames
+    vector<Texture> attackFrames; // Attack animation frames
+    vector<Texture> attackFrames2; // Attack animation frames
+    vector<Texture> attackFrames3; // Attack animation frames
 
     // A variable to track which animation to use
     enum class AnimationState { Idle, Walk, Attack };
