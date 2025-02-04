@@ -8,6 +8,8 @@
 #include <iostream>
 #include <stdexcept>
 #include <cmath>
+#include <thread> 
+#include <mutex>  
 
 using namespace sf;
 using namespace std;
@@ -25,14 +27,20 @@ public:
 
     virtual void enemyMove() = 0;
     virtual void attaque(RenderWindow& window) = 0;
+
+    void startThread(RenderWindow& window);
+    void stopThread();
  
-protected:
+private:
     // To hold the animation frames (textures)
     vector<Texture> idleFrames;  // Idle animation frames
 
     int currentFrame;
     float animationSpeed;
     float timeSinceLastFrame;
+    thread enemyThread;
+    bool running;
+    mutex mtx;
 
 };
 
