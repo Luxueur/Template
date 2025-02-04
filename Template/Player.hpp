@@ -22,22 +22,34 @@ public:
 	void soigneDesPv(RenderWindow& window);
 	int getPv()const;
 	void updateHealthBar(RenderWindow& window, const Vector2f& playerPosition);
+	void updateAttackAnimation(float deltaTime);
 	unique_ptr<Sprite> playerSprite;
+	void attack();
+	
 
 private:
 	void loadTextures();
 	void updateAnimation(float deltaTime);
-	enum class State { Idle, Walk };
+	
+	enum class State { Idle, Walk,Attacking };
 	State currentState;
 	vector<shared_ptr<Texture>> idleTextures;
 	vector<shared_ptr<Texture>> walkTextures;
+	vector<shared_ptr<Texture>> attackTextures;
+	vector<shared_ptr<Texture>> attackTextures2;
 	vector<shared_ptr<Sprite>> healthBar;
 	//shared_ptr<Texture> heartTexture;
 	int pv;
+	int currentAttack;
+	float attackCooldown;
+	float attackTimer;
+	bool isAttacking;
+	bool newAttackRequested;
 	Texture playerTexture;
 	Vector2f direction;
 	float speed;
 	float animationTime;
+	int attackFrame;
 	size_t currentFrame;
 
 };

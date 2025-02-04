@@ -84,13 +84,12 @@ void Game::playingGame() {
 		}
 
 		Vector2f direction = player.getDirection();
-		handleInput.handleInput(event, direction);
+		handleInput.handleInput(event, direction, player);
 		camera->update(player.playerSprite->getPosition());
 		camera->apply(*window);
 		player.setDirection(direction);
 
 		float deltaTime = clock.restart().asSeconds();
-		float deltaTime6 = clock6.restart().asSeconds();
 		player.update(*window, deltaTime);
 		enemy1.update(deltaTime, *window);
 		enemy2.update(deltaTime, *window);
@@ -105,17 +104,14 @@ void Game::playingGame() {
 		float deltaTimeMap6 = clockMap6.restart().asSeconds();
 		m->update(deltaTime, deltaTimeMap6);
 
-
-		//window->clear();
 		window->clear(Color(71, 171, 169));
 		m->draw(*window);
 		player.render(*window);
-		
+
 		threadManager.updateEnemies(0.016f, *window);
 		enemy1.draw(*window);
 		enemy2.draw(*window);
 		window->display();
-
 	}
 	threadManager.stop();
 	delete camera;

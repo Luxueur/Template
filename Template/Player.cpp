@@ -2,7 +2,7 @@
 using namespace sf;
 using namespace std;
 
-Player::Player() : pv(3), speed(200.0f), animationTime(0.0f), currentFrame(0), currentState(State::Idle) {
+Player::Player() : pv(3), speed(200.0f), animationTime(0.0f), currentFrame(0), currentState(State::Idle), currentAttack(1), attackCooldown(0.0f),isAttacking(false), newAttackRequested(false) {
 	loadTextures();
 	playerSprite = make_unique<Sprite>();
 	playerSprite->setTexture(*idleTextures[0]);
@@ -40,9 +40,25 @@ void Player::loadTextures()
 		walkTextures.push_back(texture);
 	}
 
+	for (int i = 0; i < 5; i++) {
+		auto texture = make_shared<Texture>();
+		if (!texture->loadFromFile("Images/Factions/Knights/Troops/Warrior/Blue/Attack/Warrior_Blue_Attack" + to_string(i) + ".png")) {
+			throw std::runtime_error("Failed to load attack1 texture");
+		}
+		attackTextures.push_back(texture);
+	}	
+	for (int i = 0; i < 5; i++) {
+		auto texture = make_shared<Texture>();
+		if (!texture->loadFromFile("Images/Factions/Knights/Troops/Warrior/Blue/Attack/Warrior_Blue_2Attack" + to_string(i) + ".png")) {
+			throw std::runtime_error("Failed to load attack1 texture");
+		}
+		attackTextures2.push_back(texture);
+	}
+
 	if (!playerTexture.loadFromFile("Images/Factions/Knights/Troops/Warrior/Blue/Idle/Warrior_Blue_Idle0.png")) {
 		throw std::runtime_error("Failed to load future health texture");
 	}
+
 }
 
 
@@ -51,6 +67,7 @@ void Player::update(RenderWindow& window, float deltaTime) {
 	playerSprite->move(direction * speed * deltaTime);
 
 	updateAnimation(deltaTime);
+	updateAttackAnimation(deltaTime);
 	updateHealthBar(window, playerSprite->getPosition());
 }
 
@@ -66,11 +83,13 @@ void Player::setDirection(Vector2f direction) {
 	this->direction = direction;
 	if (direction.x != 0.f || direction.y != 0.f)
 	{
-		currentState = State::Walk;
+		if(currentState != State::Attacking)
+			currentState = State::Walk;
 	}
 	else
 	{
-		currentState = State::Idle;
+		if (currentState != State::Attacking)
+			currentState = State::Idle;
 	}
 
 	if (direction.x < 0)
@@ -93,6 +112,20 @@ void Player::prendDesDegats(RenderWindow& window) {
 		updateHealthBar(window, playerSprite->getPosition());
 	}
 }
+void Player::attack() {
+	if (!isAttacking && attackCooldown <= 0.0f) {
+		cout << "PREMIER COUP" << endl;
+		currentState = State::Attacking;
+		attackFrame = 0;
+		attackTimer = 0.0f;
+		isAttacking = true;
+	}
+	else if (isAttacking) {
+		newAttackRequested = true;
+	}
+}
+
+
 void Player::soigneDesPv(RenderWindow& window) {
 	++pv;
 	cout << "Pv apr?s les soins : " << pv << endl;
@@ -122,5 +155,51 @@ void Player::updateAnimation(float deltaTime)
 		animationTime = 0.f;
 		currentFrame = (currentFrame + 1) % (currentState == State::Idle ? idleTextures.size() : walkTextures.size());
 		playerSprite->setTexture(*(currentState == State::Idle ? idleTextures[currentFrame] : walkTextures[currentFrame]));
+	}
+}
+void Player::updateAttackAnimation(float deltaTime) {
+	if (currentState == State::Attacking) {
+		cout << "Mise à jour de l'animation d'attaque" << endl;
+		attackTimer += deltaTime;
+		if (attackTimer >= 0.1f) {
+			attackTimer = 0.0f;
+			attackFrame++;
+			if (attackFrame >= 5) {
+				currentState = State::Idle;
+				attackCooldown = 0.5f;
+				isAttacking = false;
+				if (newAttackRequested) {
+					newAttackRequested = false;
+					cout << "DEUXIEME COUP" << endl;
+					attack();
+				}
+			}
+			else {
+				if (currentAttack == 0) {
+					playerSprite->setTexture(*attackTextures[attackFrame]);
+					cout << "PREMIER COUP" << endl;
+					currentAttack++;
+				}
+				else if (currentAttack == 1) {
+					currentAttack++;
+					cout << "DEUXIEME COUP" << endl;
+					playerSprite->setTexture(*attackTextures2[attackFrame]);
+				}
+				else if (currentAttack == 2) {
+					currentAttack = 0;
+				}
+
+				// Adaptez la direction du sprite
+				if (direction.x < 0) {
+					playerSprite->setScale(-1.f, 1.f);
+				}
+				else if (direction.x > 0) {
+					playerSprite->setScale(1.f, 1.f);
+				}
+			}
+		}
+	}
+	if (attackCooldown > 0.0f) {
+		attackCooldown -= deltaTime;
 	}
 }
