@@ -65,7 +65,9 @@ public:
 	void playingGame();
 
 	void settingsMenu() {};
+
 	void mainMenu();
+
 	void gameloop();
 };
 
