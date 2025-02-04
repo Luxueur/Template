@@ -25,7 +25,7 @@ public:
     //virtual void update(float deltaTime,RenderWindow& window) override;
     virtual void draw(RenderWindow& window) override;
 
-    virtual void enemyMove() = 0;
+    //virtual void enemyMove() = 0;
     virtual void attaque(RenderWindow& window) = 0;
 
     void startThread(RenderWindow& window);
@@ -51,7 +51,7 @@ public:
 
     void update(float deltaTime,RenderWindow& window) override;
     void draw(RenderWindow& window) override;
-    void enemyMove() override;
+    void enemyMove();
     void attaque(RenderWindow& window) override;
 
 private:
@@ -70,6 +70,28 @@ private:
     float animationSpeed;
     float timeSinceLastFrame;
 };
+
+class BarrelEnemy : public Enemy{
+public:
+    BarrelEnemy(Player* p);
+    ~BarrelEnemy();
+
+    void update(float deltaTime, RenderWindow& window) override;
+    void draw(RenderWindow& window) override;
+    void attaque(RenderWindow& window) override;
+private:
+    // Vectors to hold animation frames for each type
+    vector<Texture> idleFrames;  // Idle animation frames
+    vector<Texture> attackFrames;
+    // A variable to track which animation to use
+    enum class AnimationState { Idle, Attack };
+    AnimationState currentAnimationState;
+
+    int currentFrame;
+    float animationSpeed;
+    float timeSinceLastFrame;
+};
+
 
 
 #endif // ENEMY_HPP

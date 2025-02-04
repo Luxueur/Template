@@ -4,6 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include <fstream>
 
+//#include "game.hpp"
+
 using namespace sf;
 using namespace std;
 
@@ -14,11 +16,10 @@ public:
 
 	Texture textureMer, textureRocks, textureSable, textureSolCarreJaune, textureSolJaune, textureSolJaune_, textureSolJauneL,textureSolCarreVert, textureSolVert,textureSolVert_, textureSolVertL, textureElevationCarre, textureElevationL, textureElevation_, textureElevation, textureEscalier_, textureEscalier;
 	Texture textureTree, textureSheepBouncing, textureSheep,texturePawn,textureCastle, textureCastleD,textureArcher, textureGoblinHouse,textureCitrouille, textureEpouventail, textureChamp, textureBuisson, textureCroix, textureFleche, textureOs;
+	Texture textureDungeon,textureCloud;
 	vector<Sprite*> mers;
-	vector<Sprite*> herbeVert; 
-	vector<Sprite*> herbeVert_; 
-	vector<Sprite*> herbeVertL; 
-	vector<Sprite*> herbeVertCarre; 
+	vector<Sprite*> dungeonS;
+	vector<Sprite*> herbeVert,herbeVert_,herbeVertL, herbeVertCarre; 
 	vector<Sprite*> rocks; 
 	vector<Sprite*> sableJauneCarre; 
 	vector<Sprite*> sableJauneL; 
@@ -37,12 +38,21 @@ public:
 	vector<Sprite*> pawnsH;
 	vector<Sprite*> vCastles;
 	vector<Sprite*> vCastleDs;
+	vector<Sprite*> cloudS;
 	vector<Sprite*> vArcher;
 	vector<Sprite*> goblinHouses;
 	vector<Sprite*> osS,epouventailS,citrouilleS,champS,buissonS,flecheS,croixS;
 
+	vector<ifstream*> maps;
 	int frame,frame6;
 	float timeSinceLastFrameMap, timeSinceLastFrameMap6;
+
+	enum class StatePlaying {
+		Adventure,
+		Dungeon,
+	};
+
+	StatePlaying statePlaying;
 
 	Map();
 
@@ -51,6 +61,8 @@ public:
 	void collision();
 	
 	void loadMap();
+
+	void monSwitch(ifstream& Map, string line, int z);
 
 	void draw(RenderWindow& window);
 };
