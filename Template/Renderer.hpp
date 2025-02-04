@@ -49,7 +49,7 @@ public:
 	void update(float deltaTime,float deltaTimeMap6);
 
 	void collision();
-
+	
 	void loadMap();
 
 	void draw(RenderWindow& window);

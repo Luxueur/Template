@@ -10,7 +10,7 @@ using namespace std;
 //Renderer : classe gérant l'affichage graphique.
 
 Map::Map() {
-	 
+	
 	textureMer.loadFromFile("Images/Terrain/Water/Foam/FoamC.png");
 	textureRocks.loadFromFile("Images/Terrain/Water/Rocks/Rocks04.png"); 
 	textureSolCarreJaune.loadFromFile("Images/Terrain/Water/Ground/SolCarreJaune.png");
@@ -51,6 +51,8 @@ Map::Map() {
 	timeSinceLastFrameMap6 = 0.f ;
 
 };
+
+
 
 void Map::update(float deltaTime,float deltaTimeMap6) {
 	
@@ -97,7 +99,6 @@ void Map::update(float deltaTime,float deltaTimeMap6) {
 		archer->setTextureRect(IntRect(frame6 * 192, 0, 192, 192));
 	}
 
-
 }
 
 
@@ -105,13 +106,13 @@ void Map::collision() {
 
 };
 
-void Map::loadMap() {
+void Map::loadMap() { 
 	ifstream Map1("Map.txt");
 	ifstream Map2("Map2.txt");  
-	ifstream Map3("Map3.txt");  
+	ifstream Map3("Map3.txt");
+	ifstream Map4("Map4.txt");
 	string line;
 	float z = 0;
-
 
 	while (getline(Map1, line)) {
 		for (int i = 0; i < line.size(); i++) {
@@ -189,42 +190,42 @@ void Map::loadMap() {
 			}
 			case 'A': {
 				Sprite* elevation = new Sprite;
-				elevation->setTexture(textureSolCarreVert);
+				elevation->setTexture(textureElevation);
 				elevation->setPosition({ (float)i * 64, (float)z * 64 });
 				vElevation.push_back(elevation);
 				break;
 			}
 			case 'B': {
 				Sprite* elevationL = new Sprite;
-				elevationL->setTexture(textureSolCarreVert);
+				elevationL->setTexture(textureElevationL);
 				elevationL->setPosition({ (float)i * 64, (float)z * 64 });
 				vElevationL.push_back(elevationL);
 				break;
 			}
 			case 'C': {
 				Sprite* elevation_ = new Sprite;
-				elevation_->setTexture(textureSolCarreVert);
+				elevation_->setTexture(textureElevation_);
 				elevation_->setPosition({ (float)i * 64, (float)z * 64 });
 				vElevation_.push_back(elevation_);
 				break;
 			}
 			case 'D': {
 				Sprite* elevationCarre = new Sprite;
-				elevationCarre->setTexture(textureSolCarreVert);
+				elevationCarre->setTexture(textureElevationCarre);
 				elevationCarre->setPosition({ (float)i * 64, (float)z * 64 });
 				vElevationCarre.push_back(elevationCarre);
 				break;
 			}
 			case 'E': {
 				Sprite* escalier = new Sprite;
-				escalier->setTexture(textureSolCarreVert);
+				escalier->setTexture(textureEscalier);
 				escalier->setPosition({ (float)i * 64, (float)z * 64 });
 				vEscalier.push_back(escalier);
 				break;
 			}
 			case 'F': {
 				Sprite* escalier_ = new Sprite;
-				escalier_->setTexture(textureSolCarreVert);
+				escalier_->setTexture(textureEscalier_);
 				escalier_->setPosition({ (float)i * 64, (float)z * 64 });
 				vEscalier_.push_back(escalier_);
 				break;
@@ -426,42 +427,42 @@ void Map::loadMap() {
 			}
 			case 'A': {
 				Sprite* elevation = new Sprite;
-				elevation->setTexture(textureSolCarreVert);
+				elevation->setTexture(textureElevation);
 				elevation->setPosition({ (float)i * 64, (float)z * 64 });
 				vElevation.push_back(elevation);
 				break;
 			}
 			case 'B': {
 				Sprite* elevationL = new Sprite;
-				elevationL->setTexture(textureSolCarreVert);
+				elevationL->setTexture(textureElevationL);
 				elevationL->setPosition({ (float)i * 64, (float)z * 64 });
 				vElevationL.push_back(elevationL);
 				break;
 			}
 			case 'C': {
 				Sprite* elevation_ = new Sprite;
-				elevation_->setTexture(textureSolCarreVert);
+				elevation_->setTexture(textureElevation_);
 				elevation_->setPosition({ (float)i * 64, (float)z * 64 });
 				vElevation_.push_back(elevation_);
 				break;
 			}
 			case 'D': {
 				Sprite* elevationCarre = new Sprite;
-				elevationCarre->setTexture(textureSolCarreVert);
+				elevationCarre->setTexture(textureElevationCarre);
 				elevationCarre->setPosition({ (float)i * 64, (float)z * 64 });
 				vElevationCarre.push_back(elevationCarre);
 				break;
 			}
 			case 'E': {
 				Sprite* escalier = new Sprite;
-				escalier->setTexture(textureSolCarreVert);
+				escalier->setTexture(textureEscalier);
 				escalier->setPosition({ (float)i * 64, (float)z * 64 });
 				vEscalier.push_back(escalier);
 				break;
 			}
 			case 'F': {
 				Sprite* escalier_ = new Sprite;
-				escalier_->setTexture(textureSolCarreVert);
+				escalier_->setTexture(textureEscalier_);
 				escalier_->setPosition({ (float)i * 64, (float)z * 64 });
 				vEscalier_.push_back(escalier_);
 				break;
@@ -471,6 +472,111 @@ void Map::loadMap() {
 				tree->setTexture(textureTree);
 				tree->setPosition({ (float)i * 64, (float)z * 64 });
 				trees.push_back(tree);
+				break;
+			}
+			case 'H': {
+				Sprite* sheep = new Sprite;
+				sheep->setTexture(textureSheep);
+				sheep->setPosition({ (float)i * 64, (float)z * 64 });
+				sheeps.push_back(sheep);
+				break;
+			}
+			case 'I': {
+				Sprite* sheepBouncing = new Sprite;
+				sheepBouncing->setTexture(textureSheepBouncing);
+				sheepBouncing->setPosition({ (float)i * 64, (float)z * 64 });
+				sheepsBouncing.push_back(sheepBouncing);
+				break;
+			}
+			case 'J': {
+				Sprite* pawnM = new Sprite;
+				pawnM->setTexture(texturePawn);
+				pawnM->setPosition({ (float)i * 64, (float)z * 64 });
+				pawnsM.push_back(pawnM);
+				break;
+			}
+			case 'K': {
+				Sprite* pawnH = new Sprite;
+				pawnH->setTexture(texturePawn);
+				pawnH->setPosition({ (float)i * 64, (float)z * 64 });
+				pawnsH.push_back(pawnH);
+				break;
+			}
+			case 'L': {
+				Sprite* castle = new Sprite;
+				castle->setTexture(textureCastle);
+				castle->setPosition({ (float)i * 64, (float)z * 64 });
+				vCastles.push_back(castle);
+				break;
+			}
+			case 'M': {
+				Sprite* castleD = new Sprite;
+				castleD->setTexture(textureCastleD);
+				castleD->setPosition({ (float)i * 64, (float)z * 64 });
+				vCastleDs.push_back(castleD);
+				break;
+			}
+			case 'N': {
+				Sprite* archer = new Sprite;
+				archer->setTexture(textureArcher);
+				archer->setPosition({ (float)i * 64, (float)z * 64 });
+				vArcher.push_back(archer);
+				break;
+			}
+			case 'O': {
+				Sprite* goblinHouse = new Sprite;
+				goblinHouse->setTexture(textureGoblinHouse);
+				goblinHouse->setPosition({ (float)i * 64, (float)z * 64 });
+				goblinHouses.push_back(goblinHouse);
+				break;
+			}
+			case 'P': {
+				Sprite* croix = new Sprite;
+				croix->setTexture(textureCroix);
+				croix->setPosition({ (float)i * 64, (float)z * 64 });
+				croixS.push_back(croix);
+				break;
+			}
+			case 'Q': {
+				Sprite* fleche = new Sprite;
+				fleche->setTexture(textureFleche);
+				fleche->setPosition({ (float)i * 64, (float)z * 64 });
+				flecheS.push_back(fleche);
+				break;
+			}
+			case 'R': {
+				Sprite* epouventail = new Sprite;
+				epouventail->setTexture(textureEpouventail);
+				epouventail->setPosition({ (float)i * 64, (float)z * 64 });
+				epouventailS.push_back(epouventail);
+				break;
+			}
+			case 'S': {
+				Sprite* citrouille = new Sprite;
+				citrouille->setTexture(textureCitrouille);
+				citrouille->setPosition({ (float)i * 64, (float)z * 64 });
+				citrouilleS.push_back(citrouille);
+				break;
+			}
+			case 'T': {
+				Sprite* champ = new Sprite;
+				champ->setTexture(textureChamp);
+				champ->setPosition({ (float)i * 64, (float)z * 64 });
+				champS.push_back(champ);
+				break;
+			}
+			case 'U': {
+				Sprite* os = new Sprite;
+				os->setTexture(textureOs);
+				os->setPosition({ (float)i * 64, (float)z * 64 });
+				osS.push_back(os);
+				break;
+			}
+			case 'V': {
+				Sprite* buisson = new Sprite;
+				buisson->setTexture(textureBuisson);
+				buisson->setPosition({ (float)i * 64, (float)z * 64 });
+				buissonS.push_back(buisson);
 				break;
 			}
 			}
@@ -555,42 +661,42 @@ void Map::loadMap() {
 			}
 			case 'A': {
 				Sprite* elevation = new Sprite;
-				elevation->setTexture(textureSolCarreVert);
+				elevation->setTexture(textureElevation);
 				elevation->setPosition({ (float)i * 64, (float)z * 64 });
 				vElevation.push_back(elevation);
 				break;
 			}
 			case 'B': {
 				Sprite* elevationL = new Sprite;
-				elevationL->setTexture(textureSolCarreVert);
+				elevationL->setTexture(textureElevationL);
 				elevationL->setPosition({ (float)i * 64, (float)z * 64 });
 				vElevationL.push_back(elevationL);
 				break;
 			}
 			case 'C': {
 				Sprite* elevation_ = new Sprite;
-				elevation_->setTexture(textureSolCarreVert);
+				elevation_->setTexture(textureElevation_);
 				elevation_->setPosition({ (float)i * 64, (float)z * 64 });
 				vElevation_.push_back(elevation_);
 				break;
 			}
 			case 'D': {
 				Sprite* elevationCarre = new Sprite;
-				elevationCarre->setTexture(textureSolCarreVert);
+				elevationCarre->setTexture(textureElevationCarre);
 				elevationCarre->setPosition({ (float)i * 64, (float)z * 64 });
 				vElevationCarre.push_back(elevationCarre);
 				break;
 			}
 			case 'E': {
 				Sprite* escalier = new Sprite;
-				escalier->setTexture(textureSolCarreVert);
+				escalier->setTexture(textureEscalier);
 				escalier->setPosition({ (float)i * 64, (float)z * 64 });
 				vEscalier.push_back(escalier);
 				break;
 			}
 			case 'F': {
 				Sprite* escalier_ = new Sprite;
-				escalier_->setTexture(textureSolCarreVert);
+				escalier_->setTexture(textureEscalier_);
 				escalier_->setPosition({ (float)i * 64, (float)z * 64 });
 				vEscalier_.push_back(escalier_);
 				break;
@@ -598,7 +704,7 @@ void Map::loadMap() {
 			case 'G': {
 				Sprite* tree = new Sprite;
 				tree->setTexture(textureTree);
-				tree->setPosition({ (float)i * 192, (float)z * 192});
+				tree->setPosition({ (float)i * 64, (float)z * 64 });
 				trees.push_back(tree);
 				break;
 			}
@@ -614,6 +720,331 @@ void Map::loadMap() {
 				sheepBouncing->setTexture(textureSheepBouncing);
 				sheepBouncing->setPosition({ (float)i * 64, (float)z * 64 });
 				sheepsBouncing.push_back(sheepBouncing);
+				break;
+			}
+			case 'J': {
+				Sprite* pawnM = new Sprite;
+				pawnM->setTexture(texturePawn);
+				pawnM->setPosition({ (float)i * 64, (float)z * 64 });
+				pawnsM.push_back(pawnM);
+				break;
+			}
+			case 'K': {
+				Sprite* pawnH = new Sprite;
+				pawnH->setTexture(texturePawn);
+				pawnH->setPosition({ (float)i * 64, (float)z * 64 });
+				pawnsH.push_back(pawnH);
+				break;
+			}
+			case 'L': {
+				Sprite* castle = new Sprite;
+				castle->setTexture(textureCastle);
+				castle->setPosition({ (float)i * 64, (float)z * 64 });
+				vCastles.push_back(castle);
+				break;
+			}
+			case 'M': {
+				Sprite* castleD = new Sprite;
+				castleD->setTexture(textureCastleD);
+				castleD->setPosition({ (float)i * 64, (float)z * 64 });
+				vCastleDs.push_back(castleD);
+				break;
+			}
+			case 'N': {
+				Sprite* archer = new Sprite;
+				archer->setTexture(textureArcher);
+				archer->setPosition({ (float)i * 64, (float)z * 64 });
+				vArcher.push_back(archer);
+				break;
+			}
+			case 'O': {
+				Sprite* goblinHouse = new Sprite;
+				goblinHouse->setTexture(textureGoblinHouse);
+				goblinHouse->setPosition({ (float)i * 64, (float)z * 64 });
+				goblinHouses.push_back(goblinHouse);
+				break;
+			}
+			case 'P': {
+				Sprite* croix = new Sprite;
+				croix->setTexture(textureCroix);
+				croix->setPosition({ (float)i * 64, (float)z * 64 });
+				croixS.push_back(croix);
+				break;
+			}
+			case 'Q': {
+				Sprite* fleche = new Sprite;
+				fleche->setTexture(textureFleche);
+				fleche->setPosition({ (float)i * 64, (float)z * 64 });
+				flecheS.push_back(fleche);
+				break;
+			}
+			case 'R': {
+				Sprite* epouventail = new Sprite;
+				epouventail->setTexture(textureEpouventail);
+				epouventail->setPosition({ (float)i * 64, (float)z * 64 });
+				epouventailS.push_back(epouventail);
+				break;
+			}
+			case 'S': {
+				Sprite* citrouille = new Sprite;
+				citrouille->setTexture(textureCitrouille);
+				citrouille->setPosition({ (float)i * 64, (float)z * 64 });
+				citrouilleS.push_back(citrouille);
+				break;
+			}
+			case 'T': {
+				Sprite* champ = new Sprite;
+				champ->setTexture(textureChamp);
+				champ->setPosition({ (float)i * 64, (float)z * 64 });
+				champS.push_back(champ);
+				break;
+			}
+			case 'U': {
+				Sprite* os = new Sprite;
+				os->setTexture(textureOs);
+				os->setPosition({ (float)i * 64, (float)z * 64 });
+				osS.push_back(os);
+				break;
+			}
+			case 'V': {
+				Sprite* buisson = new Sprite;
+				buisson->setTexture(textureBuisson);
+				buisson->setPosition({ (float)i * 64, (float)z * 64 });
+				buissonS.push_back(buisson);
+				break;
+			}
+			}
+			cout << endl;
+		}
+		z++;
+	}
+	z = 0;
+	while (getline(Map4, line)) {
+		for (int i = 0; i < line.size(); i++) {
+			switch (line[i]) {
+			case '0': {
+				Sprite* mer = new Sprite;
+				mer->setTexture(textureMer);
+				mer->setOrigin(10, 10);
+				mer->setPosition({ (float)i * 64, (float)z * 64 });
+				mers.push_back(mer);
+				break;
+			}
+			case '1': {
+				Sprite* rock = new Sprite;
+				rock->setTexture(textureRocks);
+				rock->setPosition({ (float)i * 64, (float)z * 64 });
+				rocks.push_back(rock);
+				break;
+			}
+			case '2': {
+				Sprite* jaune = new Sprite;
+				jaune->setTexture(textureSolJaune);
+				jaune->setPosition({ (float)i * 64, (float)z * 64 });
+				sableJaune.push_back(jaune);
+				break;
+			}
+			case '3': {
+				Sprite* jauneL = new Sprite;
+				jauneL->setTexture(textureSolJauneL);
+				jauneL->setPosition({ (float)i * 64, (float)z * 64 });
+				sableJauneL.push_back(jauneL);
+				break;
+			}
+			case '4': {
+				Sprite* jaune_ = new Sprite;
+				jaune_->setTexture(textureSolJaune_);
+				jaune_->setPosition({ (float)i * 64, (float)z * 64 });
+				sableJaune_.push_back(jaune_);
+				break;
+			}
+			case '5': {
+				Sprite* jauneCarre = new Sprite;
+				jauneCarre->setTexture(textureSolCarreJaune);
+				jauneCarre->setPosition({ (float)i * 64, (float)z * 64 });
+				sableJauneCarre.push_back(jauneCarre);
+				break;
+			}
+			case '6': {
+				Sprite* vert = new Sprite;
+				vert->setTexture(textureSolVert);
+				vert->setPosition({ (float)i * 64, (float)z * 64 });
+				herbeVert.push_back(vert);
+				break;
+			}
+			case '7': {
+				Sprite* vertL = new Sprite;
+				vertL->setTexture(textureSolVertL);
+				vertL->setPosition({ (float)i * 64, (float)z * 64 });
+				herbeVertL.push_back(vertL);
+				break;
+			}
+			case '8': {
+				Sprite* vert_ = new Sprite;
+				vert_->setTexture(textureSolVert_);
+				vert_->setPosition({ (float)i * 64, (float)z * 64 });
+				herbeVert_.push_back(vert_);
+				break;
+			}
+			case '9': {
+				Sprite* vertCarre = new Sprite;
+				vertCarre->setTexture(textureSolCarreVert);
+				vertCarre->setPosition({ (float)i * 64, (float)z * 64 });
+				herbeVertCarre.push_back(vertCarre);
+				break;
+			}
+			case 'A': {
+				Sprite* elevation = new Sprite;
+				elevation->setTexture(textureElevation);
+				elevation->setPosition({ (float)i * 64, (float)z * 64 });
+				vElevation.push_back(elevation);
+				break;
+			}
+			case 'B': {
+				Sprite* elevationL = new Sprite;
+				elevationL->setTexture(textureElevationL);
+				elevationL->setPosition({ (float)i * 64, (float)z * 64 });
+				vElevationL.push_back(elevationL);
+				break;
+			}
+			case 'C': {
+				Sprite* elevation_ = new Sprite;
+				elevation_->setTexture(textureElevation_);
+				elevation_->setPosition({ (float)i * 64, (float)z * 64 });
+				vElevation_.push_back(elevation_);
+				break;
+			}
+			case 'D': {
+				Sprite* elevationCarre = new Sprite;
+				elevationCarre->setTexture(textureElevationCarre);
+				elevationCarre->setPosition({ (float)i * 64, (float)z * 64 });
+				vElevationCarre.push_back(elevationCarre);
+				break;
+			}
+			case 'E': {
+				Sprite* escalier = new Sprite;
+				escalier->setTexture(textureEscalier);
+				escalier->setPosition({ (float)i * 64, (float)z * 64 });
+				vEscalier.push_back(escalier);
+				break;
+			}
+			case 'F': {
+				Sprite* escalier_ = new Sprite;
+				escalier_->setTexture(textureEscalier_);
+				escalier_->setPosition({ (float)i * 64, (float)z * 64 });
+				vEscalier_.push_back(escalier_);
+				break;
+			}
+			case 'G': {
+				Sprite* tree = new Sprite;
+				tree->setTexture(textureTree);
+				tree->setPosition({ (float)i * 64, (float)z * 64 });
+				trees.push_back(tree);
+				break;
+			}
+			case 'H': {
+				Sprite* sheep = new Sprite;
+				sheep->setTexture(textureSheep);
+				sheep->setPosition({ (float)i * 64, (float)z * 64 });
+				sheeps.push_back(sheep);
+				break;
+			}
+			case 'I': {
+				Sprite* sheepBouncing = new Sprite;
+				sheepBouncing->setTexture(textureSheepBouncing);
+				sheepBouncing->setPosition({ (float)i * 64, (float)z * 64 });
+				sheepsBouncing.push_back(sheepBouncing);
+				break;
+			}
+			case 'J': {
+				Sprite* pawnM = new Sprite;
+				pawnM->setTexture(texturePawn);
+				pawnM->setPosition({ (float)i * 64, (float)z * 64 });
+				pawnsM.push_back(pawnM);
+				break;
+			}
+			case 'K': {
+				Sprite* pawnH = new Sprite;
+				pawnH->setTexture(texturePawn);
+				pawnH->setPosition({ (float)i * 64, (float)z * 64 });
+				pawnsH.push_back(pawnH);
+				break;
+			}
+			case 'L': {
+				Sprite* castle = new Sprite;
+				castle->setTexture(textureCastle);
+				castle->setPosition({ (float)i * 64, (float)z * 64 });
+				vCastles.push_back(castle);
+				break;
+			}
+			case 'M': {
+				Sprite* castleD = new Sprite;
+				castleD->setTexture(textureCastleD);
+				castleD->setPosition({ (float)i * 64, (float)z * 64 });
+				vCastleDs.push_back(castleD);
+				break;
+			}
+			case 'N': {
+				Sprite* archer = new Sprite;
+				archer->setTexture(textureArcher);
+				archer->setPosition({ (float)i * 64, (float)z * 64 });
+				vArcher.push_back(archer);
+				break;
+			}
+			case 'O': {
+				Sprite* goblinHouse = new Sprite;
+				goblinHouse->setTexture(textureGoblinHouse);
+				goblinHouse->setPosition({ (float)i * 64, (float)z * 64 });
+				goblinHouses.push_back(goblinHouse);
+				break;
+			}
+			case 'P': {
+				Sprite* croix = new Sprite;
+				croix->setTexture(textureCroix);
+				croix->setPosition({ (float)i * 64, (float)z * 64 });
+				croixS.push_back(croix);
+				break;
+			}
+			case 'Q': {
+				Sprite* fleche = new Sprite;
+				fleche->setTexture(textureFleche);
+				fleche->setPosition({ (float)i * 64, (float)z * 64 });
+				flecheS.push_back(fleche);
+				break;
+			}
+			case 'R': {
+				Sprite* epouventail = new Sprite;
+				epouventail->setTexture(textureEpouventail);
+				epouventail->setPosition({ (float)i * 64, (float)z * 64 });
+				epouventailS.push_back(epouventail);
+				break;
+			}
+			case 'S': {
+				Sprite* citrouille = new Sprite;
+				citrouille->setTexture(textureCitrouille);
+				citrouille->setPosition({ (float)i * 64, (float)z * 64 });
+				citrouilleS.push_back(citrouille);
+				break;
+			}
+			case 'T': {
+				Sprite* champ = new Sprite;
+				champ->setTexture(textureChamp);
+				champ->setPosition({ (float)i * 64, (float)z * 64 });
+				champS.push_back(champ);
+				break;
+			}
+			case 'U': {
+				Sprite* os = new Sprite;
+				os->setTexture(textureOs);
+				os->setPosition({ (float)i * 64, (float)z * 64 });
+				osS.push_back(os);
+				break;
+			}
+			case 'V': {
+				Sprite* buisson = new Sprite;
+				buisson->setTexture(textureBuisson);
+				buisson->setPosition({ (float)i * 64, (float)z * 64 });
+				buissonS.push_back(buisson);
 				break;
 			}
 			}
@@ -642,18 +1073,6 @@ void Map::draw(RenderWindow& window) {
 	for (auto& jauneCarre : sableJauneCarre) {
 		window.draw(*jauneCarre);
 	}
-	for (auto& vert : herbeVert) {
-		window.draw(*vert);
-	}
-	for (auto& vertL : herbeVertL) {
-		window.draw(*vertL);
-	}
-	for (auto& vert_ : herbeVert_) {
-		window.draw(*vert_);
-	}
-	for (auto& vertCarre : herbeVertCarre) {
-		window.draw(*vertCarre);
-	}
 	for (auto& rock : vElevation) {
 		window.draw(*rock);
 	}
@@ -666,7 +1085,19 @@ void Map::draw(RenderWindow& window) {
 	for (auto& rock : vElevationCarre) {
 		window.draw(*rock);
 	}
-	for (auto& rock : vEscalier) { 
+	for (auto& vert : herbeVert) {
+		window.draw(*vert);
+	}
+	for (auto& vertL : herbeVertL) {
+		window.draw(*vertL);
+	}
+	for (auto& vert_ : herbeVert_) {
+		window.draw(*vert_);
+	}
+	for (auto& vertCarre : herbeVertCarre) {
+		window.draw(*vertCarre);
+	}
+	for (auto& rock : vEscalier) {
 		window.draw(*rock);
 	}
 	for (auto& rock : vEscalier_) {
