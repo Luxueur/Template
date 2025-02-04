@@ -60,6 +60,7 @@ void Game::playingGame() {
 	Camera* camera = new Camera(screenWidth, screenlenght);
 	InputHandler handleInput;
 	TorcheEnemy torche(&player);
+	BarrelEnemy barrel(&player);
 	ThreadManager threadManager;
 	Clock clock, clock6;
 	Clock clockMap, clockMap6;
@@ -110,7 +111,7 @@ void Game::playingGame() {
 		window->clear(Color(71, 171, 169));
 		m->draw(*window);
 		player.render(*window);
-		
+		barrel.draw(*window);
 		threadManager.updateEnemies(0.016f, *window);
 		enemy1.draw(*window);
 		enemy2.draw(*window);
