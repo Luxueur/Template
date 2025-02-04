@@ -116,7 +116,8 @@ void Game::mainMenu() {
 			}
 			else if (event.type == Event::MouseButtonPressed and Mouse::isButtonPressed(Mouse::Left)) {
 				if (onStart) {
-					state = GameState::Playing;
+					state = GameState::Adventure;
+					
 					//Player - joueur - map
 					return gameloop();
 				}
@@ -182,7 +183,7 @@ void Game::gameloop() {
 		else if (state == GameState::Pause) {
 			pauseMenu();
 		}
-		else if (state == GameState::Playing) {
+		else if (state == GameState::Adventure) {
 			playingGame();
 			//userInput();
 			//update();

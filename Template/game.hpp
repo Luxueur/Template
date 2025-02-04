@@ -48,7 +48,7 @@ public:
 
 	enum class GameState {
 		Menu,
-		Playing,
+		Adventure,
 		Pause,
 		Settings,
 		Exit
@@ -65,7 +65,9 @@ public:
 	void playingGame();
 
 	void settingsMenu() {};
+
 	void mainMenu();
+
 	void gameloop();
 };
 
