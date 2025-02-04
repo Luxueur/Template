@@ -62,6 +62,7 @@ void Game::playingGame() {
 	TorcheEnemy torche(&player);
 	Clock clock, clock6;
 	Clock clockMap, clockMap6;
+
 	while (window->isOpen()) {
 		Event event;
 		while (window->pollEvent(event)) {
@@ -92,6 +93,7 @@ void Game::playingGame() {
 		m->update(deltaTime, deltaTimeMap6);
 		torche.enemyMove();
 		torche.attaque(*window);
+
 		//window->clear();
 		window->clear(Color(71, 171, 169));
 		m->draw(*window);
