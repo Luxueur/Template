@@ -24,8 +24,6 @@ public:
 
     //virtual void update(float deltaTime,RenderWindow& window) override;
     virtual void draw(RenderWindow& window) override;
-
-    //virtual void enemyMove() = 0;
     virtual void attaque(RenderWindow& window) = 0;
 
     void startThread(RenderWindow& window);
@@ -46,30 +44,34 @@ private:
 
 class TorcheEnemy : public Enemy {
 public:
+    // Constructor and Destructor
     TorcheEnemy(Player* p);
     ~TorcheEnemy();
 
-    void update(float deltaTime,RenderWindow& window) override;
-    void draw(RenderWindow& window) override;
-    void enemyMove();
+    void update(float deltaTime, RenderWindow& window) override;
+    void draw(RenderWindow& window) override;; 
+
+	void enemyMove();
     void attaque(RenderWindow& window) override;
+    void prendDesDegats(RenderWindow& window);
 
 private:
-    // Vectors to hold animation frames for each type
-    vector<Texture> idleFrames;  // Idle animation frames
-    vector<Texture> walkFrames;  // Walk animation frames
-    vector<Texture> attackFrames; // Attack animation frames
-    vector<Texture> attackFrames2; // Attack animation frames
-    vector<Texture> attackFrames3; // Attack animation frames
 
-    // A variable to track which animation to use
-    enum class AnimationState { Idle, Walk, Attack };
+    vector<Texture> idleFrames;
+    vector<Texture> walkFrames;
+    vector<Texture> attackFrames;
+    vector<Texture> attackFrames2;
+    vector<Texture> attackFrames3;
+
+    enum class AnimationState { Idle, Walk, Attack, Dead };
     AnimationState currentAnimationState;
-    
+
+    int pv;
     int currentFrame;
     float animationSpeed;
     float timeSinceLastFrame;
 };
+
 
 class BarrelEnemy : public Enemy{
 public:
@@ -95,6 +97,3 @@ private:
 
 
 #endif // ENEMY_HPP
-
-
-

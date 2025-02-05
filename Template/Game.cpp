@@ -3,6 +3,7 @@
 
 #include <vector>
 
+
 using namespace std;
 using namespace sf;
 
@@ -60,6 +61,7 @@ void Game::playingGame() {
 	Camera* camera = new Camera(screenWidth, screenlenght);
 	InputHandler handleInput;
 	TorcheEnemy torche(&player);
+	BarrelEnemy barrel(&player);
 	ThreadManager threadManager;
 	Clock clock, clock6;
 	Clock clockMap, clockMap6;
@@ -94,6 +96,7 @@ void Game::playingGame() {
 		player.updateAttackAnimation(deltaTime);
 		enemy1.update(deltaTime, *window);
 		enemy2.update(deltaTime, *window);
+		barrel.update(deltaTime, *window);
 
 		if (Keyboard::isKeyPressed(Keyboard::H)) {
 			player.prendDesDegats(*window);
@@ -108,7 +111,7 @@ void Game::playingGame() {
 		window->clear(Color(71, 171, 169));
 		m->draw(*window);
 		player.render(*window);
-
+		barrel.draw(*window);
 		threadManager.updateEnemies(0.016f, *window);
 		enemy1.draw(*window);
 		enemy2.draw(*window);
