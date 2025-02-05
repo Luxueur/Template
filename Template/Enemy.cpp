@@ -27,20 +27,7 @@ void Enemy::startThread(sf::RenderWindow& window) {
             std::lock_guard<std::mutex> lock(mtx);
             update(0.016f, window);
         }
-        });
-}
-            this_thread::sleep_for(chrono::milliseconds(16)); 
-            lock_guard<mutex> lock(mtx);
-            update(0.016f, window); 
-        }
-        });
-}
-
-void Enemy::stopThread() {
-    running = false;
-    if (enemyThread.joinable()) {
-        enemyThread.join();
-    }
+    });
 }
 
 void Enemy::stopThread() {

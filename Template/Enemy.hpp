@@ -51,7 +51,7 @@ public:
 
     void update(float deltaTime, RenderWindow& window) override;
     void draw(RenderWindow& window) override;
-	void loadTextures() override;
+	//void loadTextures() override; 
     void enemyMove();
     void attaque(RenderWindow& window) override;
     void prendDesDegats(RenderWindow& window);

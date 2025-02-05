@@ -50,7 +50,6 @@ public:
 		Menu,
 		Playing,
 		Pause,
-		Playing,
 		Settings,
 		Exit
 	};

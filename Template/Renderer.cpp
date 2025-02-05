@@ -1,7 +1,7 @@
 #include "Renderer.hpp"
 
 #include <iostream>
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics.hpp> 
 #include <vector>
 
 using namespace sf;
@@ -9,7 +9,7 @@ using namespace std;
 
 //Renderer : classe gérant l'affichage graphique.
 
-Map::Map() : statePlaying(StatePlaying::Dungeon) {
+Map::Map() : statePlaying(StatePlaying::Adventure) {
 	
 	textureMer.loadFromFile("Images/Terrain/Water/Foam/FoamC.png");
 	textureRocks.loadFromFile("Images/Terrain/Water/Rocks/Rocks04.png"); 

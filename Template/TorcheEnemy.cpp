@@ -139,3 +139,5 @@ void TorcheEnemy::prendDesDegats(RenderWindow& window) {
         }
     }
 }
+
+//void TorcheEnemyloadTextures() {};
