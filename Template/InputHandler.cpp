@@ -8,18 +8,18 @@ using namespace sf;
 using namespace std;
 
 
-void InputHandler::handleInput(sf::Event& event, sf::Vector2f& direction, Player& player) {
+void InputHandler::handleInput(Event& event, Vector2f& direction, Player& player) {
     direction = Vector2f(0.f, 0.f);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
+    if (Keyboard::isKeyPressed(Keyboard::Z)) {
         direction.y -= 1.f;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+    if (Keyboard::isKeyPressed(Keyboard::S)) {
         direction.y += 1.f;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+    if (Keyboard::isKeyPressed(Keyboard::Q)) {
         direction.x -= 1.f;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+    if (Keyboard::isKeyPressed(Keyboard::D)) {
         direction.x += 1.f;
     }
     if (direction.x != 0.f || direction.y != 0.f) {
@@ -31,7 +31,7 @@ void InputHandler::handleInput(sf::Event& event, sf::Vector2f& direction, Player
         float length = sqrt(direction.x * direction.x + direction.y * direction.y);
         direction /= length;
     }
-    if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+    if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
         player.attack();
     }
 }
