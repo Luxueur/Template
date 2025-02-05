@@ -49,6 +49,7 @@ public:
 	enum class GameState {
 		Menu,
 		Adventure,
+		Playing,
 		Pause,
 		Settings,
 		Exit

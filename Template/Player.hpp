@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <vector>
 #include <memory>
 #include "Camera.hpp"
@@ -31,12 +32,14 @@ private:
 	void loadTextures();
 	void updateAnimation(float deltaTime);
 	
-	enum class State { Idle, Walk,Attacking };
+	enum class State { Idle, Walk,Attacking,AttackingBow };
 	State currentState;
 	vector<shared_ptr<Texture>> idleTextures;
 	vector<shared_ptr<Texture>> walkTextures;
-	vector<shared_ptr<Texture>> attackTextures;
-	vector<shared_ptr<Texture>> attackTextures2;
+	vector<shared_ptr<Texture>> attackTexturesUp;
+	vector<shared_ptr<Texture>> attackTexturesDown;
+	vector<shared_ptr<Texture>> attackTexturesLeft;
+	vector<shared_ptr<Texture>> attackTexturesRight;
 	vector<shared_ptr<Sprite>> healthBar;
 	//shared_ptr<Texture> heartTexture;
 	int pv;
@@ -51,5 +54,10 @@ private:
 	float animationTime;
 	int attackFrame;
 	size_t currentFrame;
+	float attackSoundTimer;
+	SoundBuffer attackSoundBuffer;
+	Sound attackSound;
+	SoundBuffer bowSoundBuffer;
+	Sound bowSound;
 
 };

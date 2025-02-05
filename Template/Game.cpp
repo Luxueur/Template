@@ -91,6 +91,7 @@ void Game::playingGame() {
 
 		float deltaTime = clock.restart().asSeconds();
 		player.update(*window, deltaTime);
+		player.updateAttackAnimation(deltaTime);
 		enemy1.update(deltaTime, *window);
 		enemy2.update(deltaTime, *window);
 

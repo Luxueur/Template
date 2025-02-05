@@ -34,30 +34,13 @@ void Enemy::startThread(RenderWindow& window) {
         });
 }
 
-void Enemy::stopThread() {
-    running = false;
-    if (enemyThread.joinable()) {
-        enemyThread.join();
-    }
-
-void Enemy::draw(sf::RenderWindow& window) {
-    window.draw(enemy);
-}
-
-void Enemy::startThread(RenderWindow& window) {
-    running = true;
-    enemyThread = thread([this, &window]() {
-        while (running) {
-            this_thread::sleep_for(chrono::milliseconds(16)); 
-            lock_guard<mutex> lock(mtx);
-            update(0.016f, window); 
-        }
-        });
-}
-
-void Enemy::stopThread() {
+void Enemy::stopThread() 
+{
     running = false;
     if (enemyThread.joinable()) {
         enemyThread.join();
     }
 }
+   
+
+
