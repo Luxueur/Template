@@ -1,68 +1,52 @@
 #include "Enemy.hpp"
 
-// Constructor
-TorcheEnemy::TorcheEnemy(Player* p)
-    : Enemy(p), currentAnimationState(AnimationState::Idle), currentFrame(0), animationSpeed(0.2f), timeSinceLastFrame(0.0f), pv(3) { // Example health points
-    // Load all animations using helper function
-    loadTexturesForAnimation(idleFrames, "Images/torche/idle/idle", 6);
-    loadTexturesForAnimation(walkFrames, "Images/torche/walk/walk", 6);
-    loadTexturesForAnimation(attackFrames, "Images/torche/atk1/1atk", 5);
-    loadTexturesForAnimation(attackFrames2, "Images/torche/atk2/2atk", 5);
-    loadTexturesForAnimation(attackFrames3, "Images/torche/atk3/3atk", 5);
-
-    // Set initial texture and position
-    enemy.setTexture(idleFrames[0]);
-    enemy.setPosition(935, 515); // Example initial position
-}
-
-// Destructor
-TorcheEnemy::~TorcheEnemy() {
-    // Any necessary cleanup goes here
-}
-
-// Helper function to load textures for a given animation
-void TorcheEnemy::loadTexturesForAnimation(vector<Texture>& textureVector, const string& folder, int frameCount) {
-    textureVector.resize(frameCount);
-    for (int i = 0; i < frameCount; ++i) {
-        if (!textureVector[i].loadFromFile(folder + to_string(i) + ".png")) {
-            throw runtime_error("Erreur : texture de l'enemy est introuvable : " + folder + to_string(i) + ".png");
+TorcheEnemy::TorcheEnemy(Player* p) : Enemy(p), currentAnimationState(AnimationState::Idle), currentFrame(0), animationSpeed(0.2f), timeSinceLastFrame(0.0f) {
+    // Load Idle animation frames
+    idleFrames.resize(6);
+    for (int i = 0; i < 6; ++i) {
+        if (!idleFrames[i].loadFromFile("Images/torche/idle/idle" + to_string(i) + ".png")) {
+            throw std::runtime_error("Erreur : texture de l'enemy est introuvable.");
         }
     }
+    walkFrames.resize(6);
+    for (int i = 0; i < 5; ++i) {
+        if (!walkFrames[i].loadFromFile("Images/torche/walk/walk" + to_string(i + 1) + ".png")) {
+            throw std::runtime_error("Erreur : texture de l'enemy est introuvable.");
+        }
+    }
+    attackFrames.resize(6);
+    for (int i = 0; i < 5; ++i) {
+        if (!attackFrames[i].loadFromFile("Images/torche/atk1/1atk" + to_string(i + 1) + ".png")) {
+            throw runtime_error("Erreur : texture de l'enemy est introuvable.");
+        }
+    }
+    attackFrames2.resize(6);
+    for (int i = 0; i < 5; ++i) {
+        if (!attackFrames2[i].loadFromFile("Images/torche/atk2/2atk" + to_string(i + 1) + ".png")) {
+            throw runtime_error("Erreur : texture de l'enemy est introuvable.");
+        }
+    }
+    attackFrames3.resize(6);
+    for (int i = 0; i < 5; ++i) {
+        if (!attackFrames3[i].loadFromFile("Images/torche/atk3/3atk" + to_string(i + 1) + ".png")) {
+            throw runtime_error("Erreur : texture de l'enemy est introuvable.");
+        }
+    }
+    // Set the initial texture (idle frame)
+    enemy.setTexture(idleFrames[0]);
+    enemy.setPosition(935, 515); // Set position
 }
-
-// Update method for handling enemy state and animation updates
+TorcheEnemy::~TorcheEnemy() {}
 void TorcheEnemy::update(float deltaTime, RenderWindow& window) {
     timeSinceLastFrame += deltaTime;
-
-    // Update animation frame if enough time has passed
     if (timeSinceLastFrame >= animationSpeed) {
         timeSinceLastFrame = 0.0f;
         currentFrame = (currentFrame + 1) % idleFrames.size();
-        // Update texture based on current frame
-        switch (currentAnimationState) {
-        case AnimationState::Idle:
-            enemy.setTexture(idleFrames[currentFrame]);
-            break;
-        case AnimationState::Walk:
-            enemy.setTexture(walkFrames[currentFrame]);
-            break;
-        case AnimationState::Attack:
-            // Use attack animation depending on the type of attack
-            if (currentFrame < attackFrames.size()) {
-                enemy.setTexture(attackFrames[currentFrame]);
-            }
-            break;
-        case AnimationState::Dead:
-            // Handle death animation if needed (optional)
-            break;
-        }
+        enemy.setTexture(idleFrames[currentFrame]);
     }
-
-    // Handle enemy state based on the player's position
     float distance = sqrt(pow(player->playerSprite->getPosition().x - enemy.getPosition().x, 2) +
         pow(player->playerSprite->getPosition().y - enemy.getPosition().y, 2));
-
-    // Set the state based on distance to player
+    // Set state based on distance to player
     if (distance > 100.0f) {
         currentAnimationState = AnimationState::Walk;
     }
@@ -72,10 +56,10 @@ void TorcheEnemy::update(float deltaTime, RenderWindow& window) {
     else {
         currentAnimationState = AnimationState::Idle;
     }
-
-    // Update behavior based on animation state
+    // Update animation based on state
     switch (currentAnimationState) {
     case AnimationState::Idle:
+        // Update idle animation
         break;
     case AnimationState::Walk:
         enemyMove();
@@ -83,12 +67,8 @@ void TorcheEnemy::update(float deltaTime, RenderWindow& window) {
     case AnimationState::Attack:
         attaque(window);
         break;
-    case AnimationState::Dead:
-        // Optionally handle death state (stop moving, play death animation, etc.)
-        break;
     }
-
-    Enemy::update(deltaTime, window);{}
+    Enemy::update(deltaTime, window);
 }
 
 void TorcheEnemy::draw(RenderWindow& window) {

@@ -24,7 +24,6 @@ public:
 
     //virtual void update(float deltaTime,RenderWindow& window) override;
     virtual void draw(RenderWindow& window) override;
-    virtual void loadTextures() = 0;
     virtual void attaque(RenderWindow& window) = 0;
 
     void startThread(RenderWindow& window);
@@ -50,14 +49,13 @@ public:
     ~TorcheEnemy();
 
     void update(float deltaTime, RenderWindow& window) override;
-    void draw(RenderWindow& window) override;
-	//void loadTextures() override; 
-    void enemyMove();
+    void draw(RenderWindow& window) override;; 
+
+	void enemyMove();
     void attaque(RenderWindow& window) override;
     void prendDesDegats(RenderWindow& window);
 
 private:
-    void loadTexturesForAnimation(vector<Texture>& textureVector, const string& folder, int frameCount);
 
     vector<Texture> idleFrames;
     vector<Texture> walkFrames;
