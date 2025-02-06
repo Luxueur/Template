@@ -16,7 +16,7 @@ Enemy::~Enemy() {
 }
 
 void Enemy::draw(sf::RenderWindow& window) {
-    window.draw(enemy);
+    window.draw(enemy); 
 }
 
 void Enemy::startThread(sf::RenderWindow& window) {
