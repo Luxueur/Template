@@ -31,6 +31,7 @@ void InputHandler::handleInput(Event& event, Vector2f& direction, Player& player
         player.attack();
     }
     if (Keyboard::isKeyPressed(Keyboard::Space) || Keyboard::isKeyPressed(Keyboard::A)) {
-        player.attackWithBow();
+        Vector2f target(event.mouseButton.x, event.mouseButton.y); 
+        player.attackWithBow(target); 
     }
 }

@@ -11,64 +11,66 @@
 using namespace sf;
 using namespace std;
 
-class Player
-{
+class Player {
 public:
-	Player();
-	void update(RenderWindow& window, float deltaTime);
-	void render(RenderWindow& window);
-	void setDirection(Vector2f direction);
-	Vector2f getDirection();
-	void prendDesDegats(RenderWindow& window);
-	void soigneDesPv(RenderWindow& window);
-	int getPv()const;
-	void updateHealthBar(RenderWindow& window, const Vector2f& playerPosition);
-	void updateAttackAnimation(float deltaTime);
-	unique_ptr<Sprite> playerSprite;
-	void attack();
-	void attackWithBow();
-	
+    Player();
+    void update(RenderWindow& window, float deltaTime);
+    void render(RenderWindow& window);
+    void setDirection(Vector2f direction);
+    Vector2f getDirection();
+    void prendDesDegats(RenderWindow& window);
+    void soigneDesPv(RenderWindow& window);
+    int getPv() const;
+    void updateHealthBar(RenderWindow& window, const Vector2f& playerPosition);
+    void updateAttackAnimation(float deltaTime);
+    void attack();
+    // Mise à jour de la déclaration
+    void shootArrow(Vector2f direction); // Mise à jour de la déclaration
+    void attackWithBow(Vector2f target); // Mise à jour de la déclaration
+    void loadTextures();
+    void updateAnimation(float deltaTime);
+    void handleMouseInput(const Event& event); // Nouvelle méthode
+
+    unique_ptr<Sprite> playerSprite;
 
 private:
-	void loadTextures();
-	void updateAnimation(float deltaTime);
-	void shootArrow();
-	enum class State { Idle, Walk,Attacking,AttackingBow };
-	State currentState;
-	vector<shared_ptr<Texture>> idleTextures;
-	vector<shared_ptr<Texture>> walkTextures;
-	vector<shared_ptr<Texture>> attackTexturesUp;
-	vector<shared_ptr<Texture>> attackTexturesDown;
-	vector<shared_ptr<Texture>> attackTexturesLeft;
-	vector<shared_ptr<Texture>> attackTexturesRight;
-	vector<shared_ptr<Texture>> attackBowTexturesUp;
-	vector<shared_ptr<Texture>> attackBowTexturesDown;
-	vector<shared_ptr<Texture>> attackBowTexturesLeft;
-	vector<shared_ptr<Texture>> attackBowTexturesRight;
-	vector<shared_ptr<Texture>> attackBowTexturesUpRight;
-	vector<shared_ptr<Texture>> attackBowTexturesDownRight;
-	vector<shared_ptr<Sprite>> healthBar;
-	//shared_ptr<Texture> heartTexture;
-	int pv;
-	int currentAttack;
-	float attackCooldown;
-	float attackTimer;
-	bool isAttacking;
-	bool newAttackRequested;
-	Texture playerTexture;
-	Vector2f direction;
-	float speed;
-	float animationTime;
-	int attackFrame;
-	size_t currentFrame;
-	float attackSoundTimer;
-	SoundBuffer attackSoundBuffer;
-	Sound attackSound;
-	SoundBuffer bowSoundBuffer;
-	Sound bowSound;
-	Texture arrowTexture;
-	vector<shared_ptr<Sprite>> arrows;
-	float bowCooldown;
-	float bowTimer;
-
+    enum class State { Idle, Walk, Attacking, AttackingBow };
+    State currentState;
+    vector<shared_ptr<Texture>> idleTextures;
+    vector<shared_ptr<Texture>> walkTextures;
+    vector<shared_ptr<Texture>> attackTexturesUp;
+    vector<shared_ptr<Texture>> attackTexturesDown;
+    vector<shared_ptr<Texture>> attackTexturesLeft;
+    vector<shared_ptr<Texture>> attackTexturesRight;
+    vector<shared_ptr<Texture>> attackBowTexturesUp;
+    vector<shared_ptr<Texture>> attackBowTexturesDown;
+    vector<shared_ptr<Texture>> attackBowTexturesLeft;
+    vector<shared_ptr<Texture>> attackBowTexturesRight;
+    vector<shared_ptr<Texture>> attackBowTexturesUpRight;
+    vector<shared_ptr<Texture>> attackBowTexturesDownRight;
+    vector<shared_ptr<Sprite>> healthBar;
+    Texture arrowTexture;
+    vector<shared_ptr<Sprite>> arrows;
+    vector<Vector2f> arrowDirections; // Déclaration de la variable
+    float arrowSpeed = 500.0f; // Déclaration de la variable
+    SoundBuffer attackSoundBuffer;
+    Sound attackSound;
+    SoundBuffer bowSoundBuffer;
+    Sound bowSound;
+    int pv;
+    int currentAttack;
+    float attackCooldown;
+    float attackTimer;
+    bool isAttacking;
+    bool newAttackRequested;
+    Texture playerTexture;
+    Vector2f direction;
+    float speed;
+    float animationTime;
+    int attackFrame;
+    size_t currentFrame;
+    float attackSoundTimer;
+    float bowTimer;
+    float bowCooldown;
 };
+
