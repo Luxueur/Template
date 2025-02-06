@@ -1,4 +1,4 @@
-#include "Enemy.hpp"
+#include "BarrelEnemy.hpp"
 // --- BarrelEnemy ---
 BarrelEnemy::BarrelEnemy(Player* p)
     : Enemy(p), currentAnimationState(AnimationState::Idle), currentFrame(0), animationSpeed(0.2f), timeSinceLastFrame(0.0f) {

@@ -1,4 +1,4 @@
-#include "Enemy.hpp"
+#include "TntEnemy.hpp"
 
 Dynamite::Dynamite(Vector2f position, Vector2f target, float speed) {
     // Load the texture for the dynamite
