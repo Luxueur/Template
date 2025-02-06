@@ -7,7 +7,7 @@
 using namespace std;
 using namespace sf;
 
-
+/*Je t 'ai sauvé miguel */
 Game::Game() : state(GameState::Menu), window(nullptr), onStart(false), onSettings(false), onExit(false) {
 
 	window = new RenderWindow(VideoMode(static_cast<unsigned int>(screenWidth), static_cast<unsigned int>(screenlenght)), "Zeldo");
@@ -61,6 +61,7 @@ void Game::playingGame() {
 	Camera* camera = new Camera(screenWidth, screenlenght);
 	InputHandler handleInput;
 	TorcheEnemy torche(&player);
+	//TorcheEnemy torche(&player);
 	BarrelEnemy barrel(&player);
 	ThreadManager threadManager;
 	Clock clock, clock6;
