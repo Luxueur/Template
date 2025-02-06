@@ -3,6 +3,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <fstream>
+#include "Player.hpp"
 
 //#include "game.hpp"
 
@@ -56,13 +57,13 @@ public:
 
 	Map();
 
-	void update(float deltaTime,float deltaTimeMap6);
+	void update(float deltaTime,float deltaTimeMap6, Player& p);
 
-	void collision();
+	void collision(Player& p);
 	
-	void loadMap();
+	void loadMap(Player& p);
 
-	void monSwitch(ifstream& Map, string line, int z);
+	void monSwitch(ifstream& Map, string line, int z, Player& p);
 
 	void draw(RenderWindow& window);
 };

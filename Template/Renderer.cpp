@@ -53,7 +53,7 @@ Map::Map() : statePlaying(StatePlaying::Adventure) {
 
 };
 
-void Map::update(float deltaTime,float deltaTimeMap6) {
+void Map::update(float deltaTime, float deltaTimeMap6, Player& p) {
 	
 	timeSinceLastFrameMap += deltaTime;
 	timeSinceLastFrameMap6 += deltaTimeMap6; 
@@ -97,14 +97,106 @@ void Map::update(float deltaTime,float deltaTimeMap6) {
 	for (auto& archer : vArcher) {
 		archer->setTextureRect(IntRect(frame6 * 192, 0, 192, 192));
 	}
-
+	collision(p);
 }
 
-void Map::collision() {
-
+void Map::collision(Player& p) {
+    p.playerSprite->getGlobalBounds();
+    for (auto& dungeon : dungeonS) {
+        if (dungeon->getGlobalBounds().intersects(p.playerSprite->getGlobalBounds())) {
+            
+			cout << "entre dans le dongon";
+			maps.clear();
+            mers.clear();
+            dungeonS.clear();
+            herbeVert.clear();
+            herbeVert_.clear();
+            herbeVertL.clear();
+            herbeVertCarre.clear();
+            rocks.clear();
+            sableJauneCarre.clear();
+            sableJauneL.clear();
+            sableJaune_.clear();
+            sableJaune.clear();
+            vElevationCarre.clear();
+            vElevation_.clear();
+            vElevationL.clear();
+            vElevation.clear();
+            vEscalier_.clear();
+            vEscalier.clear();
+            trees.clear();
+            sheeps.clear();
+            sheepsBouncing.clear();
+            pawnsM.clear();
+            pawnsH.clear();
+            vCastles.clear();
+            vCastleDs.clear();
+            cloudS.clear();
+            vArcher.clear();
+            goblinHouses.clear();
+            osS.clear();
+            epouventailS.clear();
+            citrouilleS.clear();
+            champS.clear();
+            buissonS.clear();
+            flecheS.clear();
+            croixS.clear();
+			statePlaying = StatePlaying::Dungeon;
+			loadMap(p);
+            break;
+        }
+    }
+    for (auto& rock : rocks) {
+        if (rock->getGlobalBounds().intersects(p.playerSprite->getGlobalBounds())) {
+            if (p.playerSprite->getPosition().x < rock->getPosition().x) {
+                p.playerSprite->move(-1.5, 0);
+            }
+            if (p.playerSprite->getPosition().x > rock->getPosition().x) {
+                p.playerSprite->move(1.5, 0);
+            }
+            if (p.playerSprite->getPosition().y < rock->getPosition().y) {
+                p.playerSprite->move(0, -1.5);
+            }
+            if (p.playerSprite->getPosition().y > rock->getPosition().y) {
+                p.playerSprite->move(0, 1.5);
+            }
+        }
+    }
+    for (auto& tree : trees) {
+        if (tree->getGlobalBounds().intersects(p.playerSprite->getGlobalBounds())) {
+            if (p.playerSprite->getPosition().x < tree->getPosition().x) {
+                p.playerSprite->move(-1.5, 0);
+            }
+            if (p.playerSprite->getPosition().x > tree->getPosition().x) {
+                p.playerSprite->move(1.5, 0);
+            }
+            if (p.playerSprite->getPosition().y < tree->getPosition().y) {
+                p.playerSprite->move(0, -1.5);
+            }
+            if (p.playerSprite->getPosition().y > tree->getPosition().y) {
+                p.playerSprite->move(0, 1.5);
+            }
+        }
+    }
+    for (auto& sheep : sheeps) {
+        if (sheep->getGlobalBounds().intersects(p.playerSprite->getGlobalBounds())) {
+            if (p.playerSprite->getPosition().x < sheep->getPosition().x) {
+                p.playerSprite->move(-1.5, 0);
+            }
+            if (p.playerSprite->getPosition().x > sheep->getPosition().x) {
+                p.playerSprite->move(1.5, 0);
+            }
+            if (p.playerSprite->getPosition().y < sheep->getPosition().y) {
+                p.playerSprite->move(0, -1.5);
+            }
+            if (p.playerSprite->getPosition().y > sheep->getPosition().y) {
+                p.playerSprite->move(0, 1.5);
+            }
+        }
+    }
 };
 
-void Map::monSwitch(ifstream& Map, string line, int z) {
+void Map::monSwitch(ifstream& Map, string line, int z, Player& p) {
 	while (getline(Map, line)) {
 		for (int i = 0; i < line.size(); i++) {
 			switch (line[i]) {
@@ -349,6 +441,13 @@ void Map::monSwitch(ifstream& Map, string line, int z) {
 			}
 
 
+
+
+			case '*': {
+				p.playerSprite->setPosition({ (float)i * 64, (float)z * 64 });
+				break;
+			}
+
 			}
 			cout << endl;
 		}
@@ -356,7 +455,7 @@ void Map::monSwitch(ifstream& Map, string line, int z) {
 	}
 }
 
-void Map::loadMap() { 
+void Map::loadMap(Player& p) {  
 
 	if (statePlaying==StatePlaying::Adventure)
 	{
@@ -372,10 +471,10 @@ void Map::loadMap() {
 		float z = 0;
 
 		for (auto& map : maps) {
-			monSwitch(*map, line, z);
+			monSwitch(*map, line, z, p);
 		}
 	}
-	else
+	if (statePlaying == StatePlaying::Dungeon)
 	{
 		ifstream Map5("Map5.txt");
 		ifstream Map6("Map6.txt");
@@ -387,7 +486,7 @@ void Map::loadMap() {
 		float z = 0;
 
 		for (auto& map : maps) {
-			monSwitch(*map, line, z);
+			monSwitch(*map, line, z, p);
 		}
 	}
 };
