@@ -1,4 +1,4 @@
-//Enemy : classe gérant les ennemis et leur comportement.
+ï»¿//Enemy : classe gï¿½rant les ennemis et leur comportement.
 #ifndef ENEMY_HPP
 #define ENEMY_HPP
 
@@ -21,7 +21,7 @@ class Enemy : public Entity {
 public:
     Player* player;
     Enemy(Player* p);
-    ~Enemy(); 
+    ~Enemy();
 
     //bool checkCollision() const;
 
@@ -29,39 +29,12 @@ public:
     virtual void draw(RenderWindow& window) override;
     virtual void attaque(RenderWindow& window) = 0;
 
-<<<<<<< Updated upstream
     void startThread(RenderWindow& window);
     void stopThread();
 
 private:
     // To hold the animation frames (textures)
     vector<Texture> idleFrames;  // Idle animation frames
-=======
-protected:
-    // To hold the animation frames (textures)
-  /* vector<Texture> frames;*/
-    int currentFrame;
-    float animationSpeed;
-    float timeSinceLastFrame;
-
-};
-
-class TorcheEnemy : public Enemy {
-public:
-    TorcheEnemy(Player* p);
-    ~TorcheEnemy();
-
-    void update(float deltaTime,RenderWindow& window) override;
-    void draw(RenderWindow& window) override;
-    void enemyMove() override;
-    void attaque(RenderWindow& window) override;
-
-protected:
-    // Vectors to hold animation frames for each type
-    std::vector<sf::Texture> idleFrames;  // Idle animation frames
-    std::vector<sf::Texture> walkFrames;  // Walk animation frames
-    std::vector<sf::Texture> attackFrames; // Attack animation frames
->>>>>>> Stashed changes
 
     int currentFrame;
     float animationSpeed;
