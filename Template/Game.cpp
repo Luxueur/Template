@@ -68,6 +68,7 @@ void Game::playingGame() {
 
 	TorcheEnemy enemy1(&player);
 	TorcheEnemy enemy2(&player);
+	TNTEnemy tntEnemy(&player);
 
 	enemy1.setPosition(100.0f, 100.0f);
 	enemy2.setPosition(200.0f, 200.0f);
@@ -97,7 +98,8 @@ void Game::playingGame() {
 		enemy1.update(deltaTime, *window);
 		enemy2.update(deltaTime, *window);
 		barrel.update(deltaTime, *window);
-
+		tntEnemy.update(deltaTime, *window);
+		
 		if (Keyboard::isKeyPressed(Keyboard::H)) {
 			player.prendDesDegats(*window);
 		}
@@ -112,6 +114,7 @@ void Game::playingGame() {
 		m->draw(*window);
 		player.render(*window);
 		barrel.draw(*window);
+		tntEnemy.draw(*window);
 		threadManager.updateEnemies(0.016f, *window);
 		enemy1.draw(*window);
 		enemy2.draw(*window);
@@ -202,13 +205,6 @@ void Game::gameloop() {
 		}
 		else if (state == GameState::Playing) {
 			playingGame();
-			//userInput();
-			//update();
-			//display();
-
-			//window.draw(chronoText);
-			//window.draw(cursor);
-			//window.display();
 		}
 		else if (state == GameState::Settings) {
 			settingsMenu();

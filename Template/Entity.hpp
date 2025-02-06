@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
+#include "Player.hpp"
 #pragma once
 using namespace sf;
 using namespace std;
@@ -26,4 +27,19 @@ protected:
     Texture enemyTexture;
 };
 
+
+/*class Dynamite {
+public:
+    Dynamite(Vector2f position, Vector2f targetPosition, float speed);
+    void update(float deltaTime);
+    void draw(RenderWindow& window);
+    bool isOutOfScreen(RenderWindow& window);
+    bool checkCollision(Player* player); // Check if it hits the player
+
+private:
+    Sprite dynamite;
+	Texture dynamiteTexture;
+    Vector2f velocity;
+    bool exploded;
+};*/
 #endif // ENTITY_HPP

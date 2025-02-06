@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="BarrelEnemy.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Dynamite.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="InputHandler.cpp" />
@@ -150,6 +151,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ThreadManager.cpp" />
+    <ClCompile Include="TntEnemy.cpp" />
     <ClCompile Include="TorcheEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>

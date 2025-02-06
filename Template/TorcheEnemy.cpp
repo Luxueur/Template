@@ -123,7 +123,7 @@ vector<Texture>& TorcheEnemy::getCurrentAnimationFrames() {
     case AnimationState::Walk:
         return walkFrames;
     case AnimationState::Attack:
-        return attackFrames; // Default attack animation, could expand further for different attack types
+        return attackFrames; 
     case AnimationState::Dead:
         return deathFrames;
     default:

@@ -11,20 +11,16 @@ BarrelEnemy::BarrelEnemy(Player* p)
 
 BarrelEnemy::~BarrelEnemy() {}
 
-void BarrelEnemy::loadTextures() {
-    // Load idle frames
-    idleFrames = loadAnimationFrames("Images/barrel/idle1/idle", 8);
-    caughtFrames = loadAnimationFrames("Images/barrel/idle2/idle", 10);
-    damageFrames = loadAnimationFrames("Images/barrel/explode/soon", 12);
-}
-
 vector<Texture> BarrelEnemy::loadAnimationFrames(const string& basePath, int numFrames) {
 
     vector<Texture> idleFrames(8);
     for (int i = 0; i < 8; ++i) {
         if (!idleFrames[i].loadFromFile("Images/barrel/idle1/idle" + to_string(i) + ".png")) {
             throw runtime_error("Erreur : texture de l'enemy est introuvable.");
+            cout << "Loading texture from: " << "Images/barrel/idle1/idle" + to_string(i) + ".png" << endl;
+
         }
+		idleFrames.push_back(idleFrames[i]);
     }
     return idleFrames;
 
@@ -32,7 +28,10 @@ vector<Texture> BarrelEnemy::loadAnimationFrames(const string& basePath, int num
     for (int i = 0; i < 10; ++i) {
         if (!caughtFrames[i].loadFromFile("Images/barrel/idle2/idle" + to_string(i) + ".png")) {
             throw runtime_error("Erreur : texture de l'enemy est introuvable.");
+            cout << "Loading texture from: " << "Images/barrel/idle2/idle" + to_string(i) + ".png" << endl;
+
         }
+		caughtFrames.push_back(caughtFrames[i]);
     }
     return caughtFrames;
 
@@ -40,9 +39,19 @@ vector<Texture> BarrelEnemy::loadAnimationFrames(const string& basePath, int num
     for (int i = 0; i < 12; ++i) {
         if (!damageFrames[i].loadFromFile("Images/barrel/explode/soon" + to_string(i) + ".png")) {
             throw runtime_error("Erreur : texture de l'enemy est introuvable.");
+            cout << "Loading texture from: " << "Images/barrel/explode/soon" + to_string(i) + ".png" << endl;
+
         }
+		damageFrames.push_back(damageFrames[i]);
     }
     return damageFrames;
+}
+
+void BarrelEnemy::loadTextures() {
+    // Load idle frames
+    idleFrames = loadAnimationFrames("Images/barrel/idle1/idle", 8);
+    caughtFrames = loadAnimationFrames("Images/barrel/idle2/idle", 10);
+    damageFrames = loadAnimationFrames("Images/barrel/explode/soon", 12);
 }
 
 void BarrelEnemy::update(float deltaTime, RenderWindow& window) {
@@ -55,34 +64,34 @@ void BarrelEnemy::update(float deltaTime, RenderWindow& window) {
         enemy.setTexture(getCurrentAnimationFrames()[currentFrame]);
     }
 
+
     // Calculate distance to the player
     float distance = sqrt(pow(player->playerSprite->getPosition().x - enemy.getPosition().x, 2) +
         pow(player->playerSprite->getPosition().y - enemy.getPosition().y, 2));
 
     // Update animation state based on the distance to the player
-    if (distance < 15.0f) {
+    if (distance < 50.0f) {  // Or a different range
         currentAnimationState = AnimationState::Caught;
     }
-    else if (distance > 15.0f) {
+    else if (distance > 10.0f) {
         currentAnimationState = AnimationState::Idle;
     }
 
     // Handle the animation state
     switch (currentAnimationState) {
     case AnimationState::Idle:
-        // In Idle state, no special actions
         break;
     case AnimationState::Caught:
-        attaque(window);
         break;
     case AnimationState::Explode:
-        // Handle Explode animation state (if needed)
+        attaque(window);
         break;
     }
 
     // Update base class logic (if any)
     Enemy::update(deltaTime, window);
 }
+
 
 void BarrelEnemy::draw(RenderWindow& window) {
     Enemy::draw(window);  // Calls the draw function of the parent class
@@ -95,22 +104,24 @@ void BarrelEnemy::attaque(RenderWindow& window) {
 
     // If the player is within attack range, deal damage
     if (distance < 10.0f) {
-        player->prendDesDegats(window); 
+        player->prendDesDegats(window);  // Apply damage to the player
         cout << "Player is within attack range!" << endl;
-        // You could change to a "Damage" state here, for example
+        // Change to Explode state after the attack
         currentAnimationState = AnimationState::Explode;
     }
 }
+
 
 vector<Texture>& BarrelEnemy::getCurrentAnimationFrames() {
     switch (currentAnimationState) {
     case AnimationState::Idle:
         return idleFrames;
     case AnimationState::Caught:
-        return damageFrames;
+        return caughtFrames; 
     case AnimationState::Explode:
-        return damageFrames;
+        return damageFrames;  
     default:
-        return idleFrames;  // Fallback to idle frames in case of unknown state
+        return idleFrames;  
     }
 }
+
