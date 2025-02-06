@@ -30,4 +30,7 @@ void InputHandler::handleInput(Event& event, Vector2f& direction, Player& player
     if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
         player.attack();
     }
+    if (Keyboard::isKeyPressed(Keyboard::Space) || Keyboard::isKeyPressed(Keyboard::A)) {
+        player.attackWithBow();
+    }
 }

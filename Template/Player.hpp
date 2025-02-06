@@ -26,12 +26,13 @@ public:
 	void updateAttackAnimation(float deltaTime);
 	unique_ptr<Sprite> playerSprite;
 	void attack();
+	void attackWithBow();
 	
 
 private:
 	void loadTextures();
 	void updateAnimation(float deltaTime);
-	
+	void shootArrow();
 	enum class State { Idle, Walk,Attacking,AttackingBow };
 	State currentState;
 	vector<shared_ptr<Texture>> idleTextures;
@@ -40,6 +41,12 @@ private:
 	vector<shared_ptr<Texture>> attackTexturesDown;
 	vector<shared_ptr<Texture>> attackTexturesLeft;
 	vector<shared_ptr<Texture>> attackTexturesRight;
+	vector<shared_ptr<Texture>> attackBowTexturesUp;
+	vector<shared_ptr<Texture>> attackBowTexturesDown;
+	vector<shared_ptr<Texture>> attackBowTexturesLeft;
+	vector<shared_ptr<Texture>> attackBowTexturesRight;
+	vector<shared_ptr<Texture>> attackBowTexturesUpRight;
+	vector<shared_ptr<Texture>> attackBowTexturesDownRight;
 	vector<shared_ptr<Sprite>> healthBar;
 	//shared_ptr<Texture> heartTexture;
 	int pv;
@@ -59,5 +66,9 @@ private:
 	Sound attackSound;
 	SoundBuffer bowSoundBuffer;
 	Sound bowSound;
+	Texture arrowTexture;
+	vector<shared_ptr<Sprite>> arrows;
+	float bowCooldown;
+	float bowTimer;
 
 };

@@ -73,10 +73,57 @@ void Player::loadTextures() {
         throw std::runtime_error("Failed to load attack sound");
     }
 	attackSound.setBuffer(attackSoundBuffer);
+
+    for (int i = 0; i < 8; ++i) {
+        auto texture = make_shared<Texture>();
+        texture->loadFromFile("path/to/attackBowUp" + to_string(i) + ".png");
+        attackBowTexturesUp.push_back(texture);
+
+        texture = make_shared<Texture>();
+        texture->loadFromFile("path/to/attackBowDown" + to_string(i) + ".png");
+        attackBowTexturesDown.push_back(texture);
+
+        texture = make_shared<Texture>();
+        texture->loadFromFile("path/to/attackBowLeft" + to_string(i) + ".png");
+        attackBowTexturesLeft.push_back(texture);
+
+        texture = make_shared<Texture>();
+        texture->loadFromFile("path/to/attackBowRight" + to_string(i) + ".png");
+        attackBowTexturesRight.push_back(texture);
+
+        texture = make_shared<Texture>();
+        texture->loadFromFile("path/to/attackBowUpRight" + to_string(i) + ".png");
+        attackBowTexturesUpRight.push_back(texture);
+
+        texture = make_shared<Texture>();
+        texture->loadFromFile("path/to/attackBowDownRight" + to_string(i) + ".png");
+        attackBowTexturesDownRight.push_back(texture);
+    }
+
+    
+    arrowTexture.loadFromFile("path/to/arrow.png");
+
+ 
+    bowSoundBuffer.loadFromFile("path/to/bowSound.wav");
+    bowSound.setBuffer(bowSoundBuffer);
 }
 
 void Player::update(RenderWindow& window, float deltaTime) {
     playerSprite->move(direction * speed * deltaTime);
+    if (bowTimer < bowCooldown) {
+        bowTimer += deltaTime;
+    }
+
+    // Mise à jour de l'animation d'attaque à l'arc
+    if (currentState == State::AttackingBow) {
+        updateAttackAnimation(deltaTime);
+    }
+    for (auto& arrow : arrows) {
+       
+        arrow->move(direction * speed * deltaTime);
+        // Vérifier les collisions et la durée de vie de la flèche
+        // (à implémenter plus tard)
+    }
 
     updateAnimation(deltaTime);
     //updateAttackAnimation(deltaTime);
@@ -131,7 +178,23 @@ void Player::attack() {
 		//attackSound.play();
     }
 }
+void Player::attackWithBow() {
+    if (bowTimer >= bowCooldown) {
+        currentState = State::AttackingBow;
+        isAttacking = true;
+        attackFrame = 0;
+        bowTimer = 0.0f;
+        shootArrow();
+        bowSound.play();
+    }
+}
 
+void Player::shootArrow() {
+    auto arrow = make_shared<Sprite>();
+    arrow->setTexture(arrowTexture);
+    arrow->setPosition(playerSprite->getPosition());
+    arrows.push_back(arrow);
+}
 void Player::soigneDesPv(RenderWindow& window) {
     ++pv;
     cout << "Pv après les soins : " << pv << endl;
