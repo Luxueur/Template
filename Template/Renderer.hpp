@@ -4,6 +4,9 @@
 #include <SFML/Graphics.hpp>
 #include <fstream>
 #include "Player.hpp"
+#include "TntEnemy.hpp"
+#include "Dynamite.hpp"
+#include "TorcheEnemy2.hpp"
 
 //#include "game.hpp"
 

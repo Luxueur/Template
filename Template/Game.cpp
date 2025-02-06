@@ -15,7 +15,7 @@ Game::Game() : state(GameState::Menu), window(nullptr), onStart(false), onSettin
 	Image icon;
 	icon.loadFromFile("icon.png");
 	window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
-	//window->setMouseCursorVisible(false);
+	window->setMouseCursorVisible(false);
 
 	//cursor
 	cursorTexture.loadFromFile("Images/Menu/Pointers/cursor.png");
@@ -42,9 +42,11 @@ Game::Game() : state(GameState::Menu), window(nullptr), onStart(false), onSettin
 	titleButtonFont.setFont(fontMain); titleButtonFont.setCharacterSize(50); titleButtonFont.setPosition(Vector2f(float(screenWidth / 2), float(screenlenght) / 2 - 182)); titleButtonFont.setFillColor(Color::Black);
 	textTitleBounds = titleButtonFont.getLocalBounds(); titleButtonFont.setOrigin(textTitleBounds.left + textTitleBounds.width / 2.0f, textTitleBounds.top + textTitleBounds.height / 2.0f);
 	startButtonFont.setString("Ztart");
+	reprendreButtonFont.setString("Zeprendre");
 	startButtonFont.setFont(fontMain); startButtonFont.setCharacterSize(40); startButtonFont.setPosition(Vector2f(float(screenWidth / 2), float(screenlenght) / 2 - 123)); startButtonFont.setFillColor(Color::Black);
 	textStartBounds = startButtonFont.getLocalBounds(); startButtonFont.setOrigin(textStartBounds.left + textStartBounds.width / 2.0f, textStartBounds.top + textStartBounds.height / 2.0f);
 	settingsButtonFont.setString("Zettings");
+	soundButtonFont.setString("Zound");
 	settingsButtonFont.setFont(fontMain); settingsButtonFont.setCharacterSize(40); settingsButtonFont.setPosition(Vector2f(float(screenWidth / 2), float(screenlenght) / 2 - 59)); settingsButtonFont.setFillColor(Color::Black);
 	textSettingsBounds = settingsButtonFont.getLocalBounds(); settingsButtonFont.setOrigin(textSettingsBounds.left + textSettingsBounds.width / 2.0f, textSettingsBounds.top + textSettingsBounds.height / 2.0f);
 	exitButtonFont.setString("Zexit");
@@ -52,6 +54,77 @@ Game::Game() : state(GameState::Menu), window(nullptr), onStart(false), onSettin
 	textExitBounds = exitButtonFont.getLocalBounds(); exitButtonFont.setOrigin(textExitBounds.left + textExitBounds.width / 2.0f, textExitBounds.top + textExitBounds.height / 2.0f);
 
 }
+
+void Game::settingsMenu() {
+	while (window->isOpen()) {
+		Event event;
+		while (window->pollEvent(event)) {
+			if (event.type == Event::Closed)
+				window->close();
+			if (Keyboard::isKeyPressed(Keyboard::Escape)) {
+				state = GameState::Playing;
+				return gameloop();
+			}
+			else if (event.type == Event::MouseButtonPressed and Mouse::isButtonPressed(Mouse::Left)) {
+				if (onStart) {
+					state = GameState::Playing;
+					//Player - joueur - map
+					return gameloop();
+				}
+				//if (onSound) {
+				//	
+				//}
+				if (onExit) {
+					state = GameState::Exit;
+					window->close();
+				}
+			}
+		}
+
+		window->clear();
+		window->clear(Color(71, 171, 169));
+		window->draw(bannerVerticalUpSprite);
+		window->draw(startButtonSprite); window->draw(reprendreButtonFont);
+		if (startButtonSprite.getGlobalBounds().contains(window->mapPixelToCoords(Mouse::getPosition(*window)))) {
+			if (!onStart) {
+				startButtonSprite.setTexture(startButtonOffTexture);
+				reprendreButtonFont.setPosition(Vector2f(float(screenWidth / 2), float(screenlenght) / 2 - 118));
+				onStart = true; // mettre du son
+			}
+		}
+		else if (onStart) {
+			startButtonSprite.setTexture(startButtonOnTexture); onStart = false; reprendreButtonFont.setPosition(Vector2f(float(screenWidth / 2), float(screenlenght) / 2 - 123));
+		}
+
+		window->draw(settingsButtonSprite);	window->draw(settingsButtonFont);
+		if (settingsButtonSprite.getGlobalBounds().contains(window->mapPixelToCoords(Mouse::getPosition(*window)))) {
+			if (!onSettings) {
+				settingsButtonSprite.setTexture(settingsButtonOffTexture);
+				settingsButtonFont.setPosition(Vector2f(float(screenWidth / 2), float(screenlenght) / 2 - 54));
+				onSettings = true; // mettre du son
+			}
+		}
+		else if (onSettings) {
+			settingsButtonSprite.setTexture(settingsButtonOnTexture); onSettings = false; settingsButtonFont.setPosition(Vector2f(float(screenWidth / 2), float(screenlenght) / 2 - 59));
+		}
+		window->draw(exitButtonSprite);	window->draw(exitButtonFont);
+		if (exitButtonSprite.getGlobalBounds().contains(window->mapPixelToCoords(Mouse::getPosition(*window)))) {
+			if (!onExit) {
+				exitButtonSprite.setTexture(exitButtonOffTexture);
+				exitButtonFont.setPosition(Vector2f(float(screenWidth / 2), float(screenlenght) / 2 + 10));
+				onExit = true; // mettre du son
+			}
+		}
+		else if (onExit) {
+			exitButtonSprite.setTexture(exitButtonOnTexture); onExit = false; exitButtonFont.setPosition(Vector2f(float(screenWidth / 2), float(screenlenght) / 2 + 5));
+		}
+		window->draw(titleButtonFont);
+		cursorSprite.setPosition(Vector2f(static_cast<float>(Mouse::getPosition(*window).x), static_cast<float>(Mouse::getPosition(*window).y)));
+		window->draw(cursorSprite);
+		window->display();
+	}
+
+};
 
 void Game::playingGame() {
 
@@ -85,6 +158,10 @@ void Game::playingGame() {
 			if (event.type == Event::Closed) {
 				window->close();
 			}
+		}
+		if (Keyboard::isKeyPressed(Keyboard::Escape)) {
+			state = GameState::Settings;
+			settingsMenu();
 		}
 
 		Vector2f direction = player.getDirection();

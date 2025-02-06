@@ -141,6 +141,10 @@ void Map::collision(Player& p) {
             buissonS.clear();
             flecheS.clear();
             croixS.clear();
+
+
+
+
 			statePlaying = StatePlaying::Dungeon;
 			loadMap(p);
             break;
@@ -447,6 +451,7 @@ void Map::monSwitch(ifstream& Map, string line, int z, Player& p) {
 				p.playerSprite->setPosition({ (float)i * 64, (float)z * 64 });
 				break;
 			}
+
 
 			}
 			cout << endl;

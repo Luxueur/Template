@@ -44,8 +44,9 @@ public:
 	Texture startButtonOnTexture, startButtonOffTexture; Sprite startButtonSprite;
 	Texture settingsButtonOnTexture, settingsButtonOffTexture; Sprite settingsButtonSprite;
 	Font fontMain;
-	Text startButtonFont, settingsButtonFont, exitButtonFont, titleButtonFont;
+	Text startButtonFont, settingsButtonFont, exitButtonFont, titleButtonFont, soundButtonFont, reprendreButtonFont;
 	FloatRect textTitleBounds, textStartBounds, textSettingsBounds, textExitBounds;
+
 
 
 
@@ -67,7 +68,7 @@ public:
 
 	void playingGame();
 
-	void settingsMenu() {};
+	void settingsMenu();
 
 	void mainMenu();
 
