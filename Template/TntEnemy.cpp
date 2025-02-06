@@ -38,7 +38,6 @@ void TNTEnemy::loadTextures() {
     idleFrames = loadAnimationFrames("Images/tnt/idle/idle", 6);
     throwFrames = loadAnimationFrames("Images/tnt/atk/atk", 7);
     textureOs.loadFromFile("Images/Deco/os.png");
-
 }
 
 
