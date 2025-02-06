@@ -7,7 +7,7 @@ Player::Player() : pv(3), speed(200.0f), animationTime(0.0f), currentFrame(0), c
     playerSprite = make_unique<Sprite>();
     playerSprite->setTexture(*idleTextures[0]);
     playerSprite->setOrigin(Vector2f(idleTextures[0]->getSize()) / 2.f);
-    playerSprite->setPosition(Vector2f(400.0f, 300.0f));
+    /*playerSprite->setPosition(Vector2f(400.0f, 300.0f));*/
     direction = Vector2f(0.0f, 0.0f);
 
     for (int i = 0; i < pv; i++) {

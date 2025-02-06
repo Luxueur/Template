@@ -54,10 +54,10 @@ Game::Game() : state(GameState::Menu), window(nullptr), onStart(false), onSettin
 }
 
 void Game::playingGame() {
-	Map* m = new Map();
-	m->loadMap();
 
 	Player player;
+	Map* m = new Map();
+	m->loadMap(player);
 	Camera* camera = new Camera(screenWidth, screenlenght);
 	InputHandler handleInput;
 	TorcheEnemy torche(&player);
@@ -109,7 +109,7 @@ void Game::playingGame() {
 		}
 
 		float deltaTimeMap6 = clockMap6.restart().asSeconds();
-		m->update(deltaTime, deltaTimeMap6);
+		m->update(deltaTime, deltaTimeMap6, player);
 
 		window->clear(Color(71, 171, 169));
 		m->draw(*window);
