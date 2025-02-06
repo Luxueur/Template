@@ -9,7 +9,9 @@
 #include <stdexcept>
 #include <cmath>
 #include <thread> 
-#include <mutex>  
+#include <mutex>
+#include <string>
+
 
 using namespace sf;
 using namespace std;
@@ -82,22 +84,29 @@ private:
 };
 
 
-class BarrelEnemy : public Enemy{
+class BarrelEnemy : public Enemy {
 public:
     BarrelEnemy(Player* p);
     ~BarrelEnemy();
 
     void update(float deltaTime, RenderWindow& window) override;
     void draw(RenderWindow& window) override;
-    void attaque(RenderWindow& window) override;
+    void attaque(RenderWindow& window);
+
 private:
-    // Vectors to hold animation frames for each type
-    vector<Texture> idleFrames;  // Idle animation frames
-    vector<Texture> attackFrames;
-    // A variable to track which animation to use
-    enum class AnimationState { Idle, Attack };
+    void loadTextures();
+
+    vector<Texture> loadAnimationFrames(const string& basePath, int numFrames);
+    vector<Texture>& getCurrentAnimationFrames();
+    vector<Texture> idleFrames;
+    vector<Texture> caughtFrames;
+    vector<Texture> damageFrames;
+
+    // Animation state control
+    enum class AnimationState { Idle, Caught, Explode};
     AnimationState currentAnimationState;
 
+    // Animation control variables
     int currentFrame;
     float animationSpeed;
     float timeSinceLastFrame;

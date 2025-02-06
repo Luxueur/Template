@@ -156,7 +156,7 @@ void TorcheEnemy::attaque(RenderWindow& window) {
         cout << "Player is within attack range!" << endl;
     }
 }
-
+ 
 // Method for taking damage and updating health
 void TorcheEnemy::prendDesDegats(RenderWindow& window) {
     if (pv > 0) {
@@ -167,5 +167,3 @@ void TorcheEnemy::prendDesDegats(RenderWindow& window) {
         }
     }
 }
-
-
