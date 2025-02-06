@@ -1,4 +1,4 @@
-#include "Enemy.hpp"
+#include "TorcheEnemy2.hpp"
 
 TorcheEnemy::TorcheEnemy(Player* p) : Enemy(p), currentAnimationState(AnimationState::Idle), currentFrame(0), animationSpeed(0.2f), timeSinceLastFrame(0.0f), pv(5) {
     // Load all animation frames using a helper function

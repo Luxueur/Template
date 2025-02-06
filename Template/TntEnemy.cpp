@@ -1,7 +1,7 @@
-#include "Enemy.hpp"
+#include "TntEnemy.hpp"
 
 TNTEnemy::TNTEnemy(Player* p)
-    : Enemy(p), throwCooldown(2.0f), currentAnimationState(AnimationState::Idle),
+    : Enemy(p), throwCooldown(2.0f), currentAnimationState(AnimationState2::Idle),
     currentFrame(0), animationSpeed(0.2f), timeSinceLastFrame(0.0f) {
     loadTextures();
 }
@@ -14,31 +14,41 @@ TNTEnemy::~TNTEnemy() {
 }
 
 vector<Texture> TNTEnemy::loadAnimationFrames(const string& basePath, int numFrames) {
-    vector<Texture> frames;
-    for (int i = 0; i < numFrames; ++i) {
-        Texture texture;
-        if (!texture.loadFromFile(basePath + to_string(i + 1) + ".png")) {
+
+    vector<Texture> idleFrames(6);
+    for (int i = 0; i < 6; ++i) {
+        string filename = "Images/tnt/idle/idle" + to_string(i + 1) + ".png";
+        if (!idleFrames[i].loadFromFile(filename)) {
             throw runtime_error("Erreur : texture de l'enemy est introuvable.");
         }
-        frames.push_back(texture);
     }
-    return frames;
+    return idleFrames;
+
+    vector<Texture> attackFrames(7);
+    for (int i = 0; i < 7; ++i) {
+        string filename2 = "Images/tnt/atk/atk1" + to_string(i + 1) + ".png";
+        if (!attackFrames[i].loadFromFile(filename2)) {
+            throw runtime_error("Erreur : texture de l'enemy est introuvable.");
+        }
+    }
+    return attackFrames;
 }
 
 void TNTEnemy::loadTextures() {
     idleFrames = loadAnimationFrames("Images/tnt/idle/idle", 6);
     throwFrames = loadAnimationFrames("Images/tnt/atk/atk", 7);
-    walkFrames = loadAnimationFrames("Images/tnt/walk/walk", 6);
+    textureOs.loadFromFile("Images/Deco/os.png");
 }
+
 
 vector<Texture>& TNTEnemy::getCurrentAnimationFrames() {
     switch (currentAnimationState) {
-    case AnimationState::Idle:
+    case AnimationState2::Idle:
         return idleFrames;
-    case AnimationState::Attack:
+    case AnimationState2::Attack:
         return throwFrames;
-    case AnimationState::Walk:
-        return walkFrames;
+    case AnimationState2::Dead:
+        return throwFrames;
     default:
         return idleFrames;
     }
@@ -73,6 +83,18 @@ void TNTEnemy::update(float deltaTime, RenderWindow& window) {
     // Remove dynamites that are out of screen
     dynamites.erase(remove_if(dynamites.begin(), dynamites.end(),
         [&window](Dynamite* dynamite) { return dynamite->isOutOfScreen(window); }), dynamites.end());
+
+    // Update animation based on state
+    switch (currentAnimationState) {
+    case AnimationState2::Idle:
+        break;
+    case AnimationState2::Attack:
+        attaque(window);
+        break;
+    case AnimationState2::Dead:
+        enemy.setTexture(textureOs);
+        break;
+    }
 }
 
 void TNTEnemy::draw(RenderWindow& window) {
