@@ -1,22 +1,8 @@
 #ifndef TNTENEMY_HPP
 #define TNTENEMY_HPP
 #include "Enemy.hpp"
+#include "Dynamite.hpp"
 
-// Déclaration minimale de la classe Dynamite
-class Dynamite {
-public:
-    Dynamite(Vector2f position, Vector2f target, float speed);
-    ~Dynamite();
-    void update(float deltaTime);
-    void draw(RenderWindow& window);
-    bool checkCollision(Player* player);
-    bool isOutOfScreen(RenderWindow& window);
-private:
-    Sprite dynamiteSprite;
-    Texture dynamiteTexture; // Ajout de la déclaration de dynamiteTexture
-    Vector2f velocity;
-    bool exploded;
-};
 
 enum class AnimationState2 {
     Idle,

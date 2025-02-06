@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClInclude Include="BarrelEnemy.hpp" />
     <ClInclude Include="Camera.hpp" />
+    <ClInclude Include="Dynamite.hpp" />
     <ClInclude Include="Enemy.hpp" />
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="game.hpp" />
