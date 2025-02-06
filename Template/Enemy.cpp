@@ -32,7 +32,7 @@ void Enemy::update(float deltaTime,RenderWindow& window) {
 }
 
 void Enemy::draw(sf::RenderWindow& window) {
-    window.draw(enemy);
+    window.draw(enemy); 
 }
 
 <<<<<<< Updated upstream

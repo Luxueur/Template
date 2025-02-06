@@ -21,7 +21,7 @@ class Enemy : public Entity {
 public:
     Player* player;
     Enemy(Player* p);
-    ~Enemy();
+    ~Enemy(); 
 
     //bool checkCollision() const;
 
