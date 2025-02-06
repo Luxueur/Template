@@ -1,44 +1,47 @@
-/*#include "Entity.hpp"
-Dynamite::Dynamite(Vector2f position, Vector2f targetPosition, float speed)
-    : exploded(false) {
-    // Set dynamite sprite and position
-    if (!dynamiteTexture.loadFromFile("path_to_dynamite_image.png")) {
-        throw std::runtime_error("Failed to load dynamite texture");
-    }
-    dynamite.setTexture(dynamiteTexture);
-    dynamite.setPosition(position);
+#include "Enemy.hpp"
 
-    // Calculate velocity based on target (player's position)
-    Vector2f direction = targetPosition - position;
+Dynamite::Dynamite(Vector2f position, Vector2f target, float speed) {
+    // Load the texture for the dynamite
+    if (!dynamiteTexture.loadFromFile("Images/dynamite.png")) {
+        throw runtime_error("Erreur : texture de la dynamite est introuvable.");
+    }
+    dynamiteSprite.setTexture(dynamiteTexture);
+    dynamiteSprite.setPosition(position);
+
+    // Calculate the velocity
+    Vector2f direction = target - position;
     float length = sqrt(direction.x * direction.x + direction.y * direction.y);
-    direction /= length; // Normalize direction vector
-    velocity = direction * speed;
+    velocity = direction / length * speed;
+
+    exploded = false;
+}
+
+Dynamite::~Dynamite() {
+    // Destructor logic if needed
 }
 
 void Dynamite::update(float deltaTime) {
-    if (exploded) return; // Stop moving if it exploded
-
-    dynamite.move(velocity * deltaTime);  // Move dynamite
+    if (!exploded) {
+        dynamiteSprite.move(velocity * deltaTime);
+    }
 }
 
 void Dynamite::draw(RenderWindow& window) {
-    if (exploded) return;
-
-    window.draw(dynamite);  // Draw dynamite
+    if (!exploded) {
+        window.draw(dynamiteSprite);
+    }
 }
 
-
-
 bool Dynamite::checkCollision(Player* player) {
-    // Collision check between dynamite and player
-    if (dynamite.getGlobalBounds().intersects(player->playerSprite->getGlobalBounds())) {
+    if (dynamiteSprite.getGlobalBounds().intersects(player->playerSprite->getGlobalBounds())) {
         exploded = true;
-        return true;  // Dynamite explodes if it hits the player
+        return true;
     }
     return false;
 }
 
-bool Dynamite::isOutOfScreen(sf::RenderWindow& window) {
-    sf::FloatRect bounds = dynamite.getGlobalBounds();
-    return !window.getGlobalBounds().intersects(bounds);  // Check if dynamite is out of screen
-}*/
+bool Dynamite::isOutOfScreen(RenderWindow& window) {
+    FloatRect bounds = dynamiteSprite.getGlobalBounds();
+    FloatRect screenBounds(0.f, 0.f, static_cast<float>(window.getSize().x), static_cast<float>(window.getSize().y));
+    return !screenBounds.intersects(bounds);
+}

@@ -1,4 +1,4 @@
-/*#include "Enemy.hpp"
+#include "Enemy.hpp"
 
 TNTEnemy::TNTEnemy(Player* p)
     : Enemy(p), throwCooldown(2.0f), currentAnimationState(AnimationState::Idle),
@@ -13,48 +13,31 @@ TNTEnemy::~TNTEnemy() {
     }
 }
 
-
 vector<Texture> TNTEnemy::loadAnimationFrames(const string& basePath, int numFrames) {
-
-    vector<Texture> idleFrames(6);
-    for (int i = 0; i < 6; ++i) {
-        if (!idleFrames[i].loadFromFile("Images/tnt/idle/idle" + to_string(i + 1) + ".png")) {
+    vector<Texture> frames;
+    for (int i = 0; i < numFrames; ++i) {
+        Texture texture;
+        if (!texture.loadFromFile(basePath + to_string(i + 1) + ".png")) {
             throw runtime_error("Erreur : texture de l'enemy est introuvable.");
         }
+        frames.push_back(texture);
     }
-    return idleFrames;
-
-    vector<Texture> throwFrames(7);
-    for (int i = 0; i < 7; ++i) {
-        if (!throwFrames[i].loadFromFile("Images/tnt/atk/atk" + to_string(i + 1) + ".png")) {
-            throw runtime_error("Erreur : texture de l'enemy est introuvable.");
-        }
-    }
-    return throwFrames;
-
-    vector<Texture> walkFrames(6);
-    for (int i = 0; i < 6; ++i) {
-        if (!walkFrames[i].loadFromFile("Images/tnt/walk/walk" + to_string(i + 1) + ".png")) {
-            throw runtime_error("Erreur : texture de l'enemy est introuvable.");
-        }
-    }
-    return walkFrames;
-
+    return frames;
 }
 
 void TNTEnemy::loadTextures() {
-    idleFrames = loadAnimationFrames("Images/tnt/idle/idle", 6);  
-    throwFrames = loadAnimationFrames("Images/tnt/atk/atk", 7); 
-	walkFrames = loadAnimationFrames("Images/tnt/walk/walk", 6); 
+    idleFrames = loadAnimationFrames("Images/tnt/idle/idle", 6);
+    throwFrames = loadAnimationFrames("Images/tnt/atk/atk", 7);
+    walkFrames = loadAnimationFrames("Images/tnt/walk/walk", 6);
 }
 
 vector<Texture>& TNTEnemy::getCurrentAnimationFrames() {
     switch (currentAnimationState) {
     case AnimationState::Idle:
         return idleFrames;
-    case AnimationState::Attack:  
+    case AnimationState::Attack:
         return throwFrames;
-    case AnimationState::Walk:  
+    case AnimationState::Walk:
         return walkFrames;
     default:
         return idleFrames;
@@ -90,7 +73,6 @@ void TNTEnemy::update(float deltaTime, RenderWindow& window) {
     // Remove dynamites that are out of screen
     dynamites.erase(remove_if(dynamites.begin(), dynamites.end(),
         [&window](Dynamite* dynamite) { return dynamite->isOutOfScreen(window); }), dynamites.end());
-
 }
 
 void TNTEnemy::draw(RenderWindow& window) {
@@ -113,4 +95,3 @@ void TNTEnemy::throwDynamite() {
     Vector2f targetPosition = player->playerSprite->getPosition();
     dynamites.push_back(new Dynamite(dynamitePosition, targetPosition, 200.0f)); // 200.0f is the speed
 }
-*/

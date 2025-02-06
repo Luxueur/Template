@@ -12,16 +12,17 @@
 #include <mutex>
 #include <string>
 
-
 using namespace sf;
 using namespace std;
+
+
 
 class Enemy : public Entity {
 public:
     Player* player;
     Enemy(Player* p);
     ~Enemy();
-    
+
     //bool checkCollision() const;
 
     //virtual void update(float deltaTime,RenderWindow& window) override;
@@ -30,7 +31,7 @@ public:
 
     void startThread(RenderWindow& window);
     void stopThread();
- 
+
 private:
     // To hold the animation frames (textures)
     vector<Texture> idleFrames;  // Idle animation frames
@@ -103,7 +104,7 @@ private:
     vector<Texture> damageFrames;
 
     // Animation state control
-    enum class AnimationState { Idle, Caught, Explode};
+    enum class AnimationState { Idle, Caught, Explode };
     AnimationState currentAnimationState;
 
     // Animation control variables
@@ -112,7 +113,21 @@ private:
     float timeSinceLastFrame;
 };
 
-
+// Déclaration minimale de la classe Dynamite
+class Dynamite {
+public:
+    Dynamite(Vector2f position, Vector2f target, float speed);
+    ~Dynamite();
+    void update(float deltaTime);
+    void draw(RenderWindow& window);
+    bool checkCollision(Player* player);
+    bool isOutOfScreen(RenderWindow& window);
+private:
+    Sprite dynamiteSprite;
+    Texture dynamiteTexture; // Ajout de la déclaration de dynamiteTexture
+    Vector2f velocity;
+    bool exploded;
+};
 
 class TNTEnemy : public Enemy {
 public:
@@ -136,7 +151,6 @@ private:
     // Dynamite-related properties
     vector<Dynamite*> dynamites;  // List of dynamites thrown at the player
     float throwCooldown; // Time between throws
-
 
     AnimationState currentAnimationState;
     int currentFrame;
